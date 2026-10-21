@@ -13,7 +13,7 @@ export function formatTime(t: string) {
 export function HoursList({ settings, tone = "dark" }: { settings: SiteSettings; tone?: "dark" | "light" }) {
   const hours = settings.business_hours;
   if (!hours || Object.keys(hours).length === 0) {
-    return <p className={tone === "light" ? "text-ivory/70" : "text-muted"}>Opening hours: {NOT_SET.toLowerCase()}.</p>;
+    return <p className={tone === "light" ? "text-ivory/70" : "text-muted"}>Opening hours: to be added by KRIVA.</p>;
   }
   return (
     <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-[0.95rem]">
@@ -52,7 +52,7 @@ export function ContactLines({ settings, tone = "dark" }: { settings: SiteSettin
             )}
           </>
         ) : (
-          <span className={muted}>{settings.city}, {settings.region} (exact address {NOT_SET.toLowerCase()})</span>
+          <span className={muted}>{settings.city}, {settings.region} (exact address to be added by KRIVA)</span>
         )}
       </li>
       <li>
