@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Blueberry cheesecake (sample illustration)">
+  <rect width="800" height="1000" fill="#F3EADB"/>
+  <ellipse cx="400" cy="780" rx="290" ry="42" fill="#E9DCC6"/>
+  
+    <path d="M200 520 L600 520 L600 740 Q400 780 200 740 Z" fill="#FBF0D9"/>
+    <rect x="200" y="720" width="400" height="40" fill="#C9935B"/>
+    <ellipse cx="400" cy="520" rx="200" ry="34" fill="#4E3D7A"/>
+    <circle cx="320" cy="512" r="13" fill="#2F2560"/><circle cx="370" cy="512" r="13" fill="#2F2560"/><circle cx="420" cy="512" r="13" fill="#2F2560"/><circle cx="470" cy="512" r="13" fill="#2F2560"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#6A5F5C" letter-spacing="2">Sample illustration</text>
+</svg>
