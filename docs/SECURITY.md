@@ -11,6 +11,7 @@
 - ☐ Rotate any key that is ever pasted into chat, email or a ticket.
 
 ## Authentication & authorisation
+- **Owner dashboard preview mode** (`KRIVA_DEMO_ADMIN=1`) shows /admin with sample orders and no login, for demonstrations only. It switches on **only** when Supabase is not configured (tested), saves nothing, and must never be set in production.
 - ✅ Owners are listed in `admin_users`; there is no public sign-up path to admin access. ☐ Disable "Allow new users to sign up" in Supabase.
 - ✅ Every admin page calls `requireAdminPage()` and every admin server action calls `requireAdminAction()` — verified with `supabase.auth.getUser()` against the Auth server (tested: unauthenticated and non-owner users are rejected before any write).
 - ✅ The `/admin` proxy redirect is a convenience only; authorisation never depends on hidden buttons or routes.

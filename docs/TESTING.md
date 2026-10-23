@@ -1,6 +1,6 @@
 # Testing report
 
-**Date:** 21 October 2026 · **Environment:** Linux, Node.js 22.22, Next.js 16.4.2, Vitest 5.0.5
+**Date:** 23 October 2026 · **Environment:** Linux, Node.js 22.22, Next.js 16.4.2, Vitest 5.0.5
 
 ## Results
 
@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | Lint | `npm run lint` | ✅ 0 errors, 0 warnings |
 | Type check | `npm run typecheck` | ✅ no errors |
-| Automated tests | `npm test` | ✅ **92 / 92 passed** (8 files) |
+| Automated tests | `npm test` | ✅ **94 / 94 passed** (8 files) |
 | Production build | `npm run build` | ✅ compiled; 29 routes + proxy |
 | Smoke test (preview mode) | `next start` + Playwright/Chromium | ✅ see below |
 

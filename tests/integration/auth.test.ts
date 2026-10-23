@@ -116,3 +116,15 @@ describe("product management validation (owner)", () => {
     expect(await recordOfflinePayment(null, fd({ id: ID, to: "paid" }))).toMatchObject({ error: "Order not found." });
   });
 });
+
+describe("owner dashboard preview mode", () => {
+  it("can never switch on when Supabase is configured, even with the preview flag set", async () => {
+    vi.stubEnv("KRIVA_DEMO_ADMIN", "1");
+    const { isDemoAdmin } = await import("@/lib/demo-admin");
+    expect(isDemoAdmin()).toBe(false); // NEXT_PUBLIC_SUPABASE_URL is set in this test file
+    session.user = null;
+    expect(await getAdmin()).toBeNull();
+    await expect(requireAdminAction()).rejects.toBeInstanceOf(NotAuthorisedError);
+    vi.unstubAllEnvs();
+  });
+});

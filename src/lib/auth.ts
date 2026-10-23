@@ -2,6 +2,7 @@ import "server-only";
 import { redirect } from "next/navigation";
 import { isSupabaseConfigured } from "./env";
 import { createSessionClient } from "./supabase/server";
+import { DEMO_OWNER, demoAdminClient, isDemoAdmin } from "./demo-admin";
 
 export class NotAuthorisedError extends Error {
   constructor() {
@@ -15,6 +16,10 @@ export class NotAuthorisedError extends Error {
  * and that the user is listed in admin_users.
  */
 export async function getAdmin() {
+  // Owner-dashboard PREVIEW with sample data (never active when Supabase is configured)
+  if (isDemoAdmin()) {
+    return { user: DEMO_OWNER, supabase: demoAdminClient as unknown as Awaited<ReturnType<typeof createSessionClient>> };
+  }
   if (!isSupabaseConfigured()) return null;
   const supabase = await createSessionClient();
   const { data, error } = await supabase.auth.getUser();

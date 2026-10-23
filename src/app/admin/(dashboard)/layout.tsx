@@ -3,6 +3,7 @@ import Link from "next/link";
 import { requireAdminPage } from "@/lib/auth";
 import { signOut } from "../actions/auth";
 import { Logo } from "@/components/Logo";
+import { isDemoAdmin } from "@/lib/demo-admin";
 
 export const metadata: Metadata = { title: { default: "Dashboard", template: "%s | KRIVA admin" }, robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
@@ -40,7 +41,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </ul>
         </nav>
       </aside>
-      <main id="main" className="min-w-0 flex-1 px-4 py-8 sm:px-8">{children}</main>
+      <main id="main" className="min-w-0 flex-1 px-4 py-8 sm:px-8">
+        {isDemoAdmin() && (
+          <p className="mb-6 rounded-md bg-champagne-soft px-4 py-3 text-sm">
+            Owner dashboard preview: the orders below are samples and nothing you change is saved. The real dashboard opens
+            with KRIVA&apos;s own login once the shop&apos;s database is connected.
+          </p>
+        )}
+        {children}
+      </main>
     </div>
   );
 }

@@ -28,7 +28,7 @@ export default async function CustomCakesPage() {
       <section aria-labelledby="design-title" className="border-b border-cream-deep">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 id="design-title" className="font-display text-4xl text-brand sm:text-5xl">Sketch your cake in 3D</h2>
-          <p className="mt-3 max-w-xl text-muted">Choose tiers, colour, finish and topping — including our marble mirror glaze — and turn the cake to see it from every side.</p>
+          <p className="mt-3 max-w-xl text-muted">Choose tiers, colour, finish and topping — including our marble mirror glaze and two-tone buttercream with roses — and turn the cake to see it from every side.</p>
           <div className="mt-10">
             <CakeDesigner />
           </div>

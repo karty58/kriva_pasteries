@@ -3,9 +3,9 @@
  * Kept free of three.js so it can be used on the server and in tests.
  */
 export type Tiers = 1 | 2 | 3;
-export type Frosting = "ivory" | "blush" | "burgundy" | "chocolate" | "pistachio";
-export type Drip = "none" | "chocolate" | "gold" | "mirror";
-export type Topping = "berries" | "rosettes" | "gold-leaf" | "none";
+export type Frosting = "ivory" | "blush" | "peach" | "burgundy" | "chocolate" | "pistachio";
+export type Drip = "none" | "chocolate" | "gold" | "mirror" | "ombre";
+export type Topping = "roses" | "berries" | "rosettes" | "gold-leaf" | "none";
 
 export interface CakeDesign {
   tiers: Tiers;
@@ -17,6 +17,7 @@ export interface CakeDesign {
 export const FROSTINGS: { value: Frosting; label: string; hex: string }[] = [
   { value: "ivory", label: "Ivory", hex: "#f7efe2" },
   { value: "blush", label: "Blush pink", hex: "#efc9cd" },
+  { value: "peach", label: "Peach", hex: "#f4bfa6" },
   { value: "pistachio", label: "Pistachio", hex: "#cfdcae" },
   { value: "chocolate", label: "Chocolate", hex: "#5a3426" },
   { value: "burgundy", label: "Burgundy", hex: "#5c1525" },
@@ -24,6 +25,7 @@ export const FROSTINGS: { value: Frosting; label: string; hex: string }[] = [
 
 /** Finish over the frosting colour. "mirror" is KRIVA's signature marble mirror glaze. */
 export const DRIPS: { value: Drip; label: string }[] = [
+  { value: "ombre", label: "Two-tone buttercream" },
   { value: "mirror", label: "Marble mirror glaze" },
   { value: "none", label: "Smooth frosting" },
   { value: "chocolate", label: "Chocolate ganache drip" },
@@ -31,14 +33,16 @@ export const DRIPS: { value: Drip; label: string }[] = [
 ];
 
 export const TOPPINGS: { value: Topping; label: string }[] = [
+  { value: "roses", label: "Roses, rosettes & gold hearts" },
   { value: "berries", label: "Fresh berries" },
   { value: "rosettes", label: "Piped rosettes" },
   { value: "gold-leaf", label: "Gold leaf" },
   { value: "none", label: "Clean finish" },
 ];
 
-export const DEFAULT_DESIGN: CakeDesign = { tiers: 1, frosting: "blush", drip: "mirror", topping: "berries" };
-export const HERO_DESIGN: CakeDesign = { tiers: 1, frosting: "burgundy", drip: "mirror", topping: "gold-leaf" };
+export const DEFAULT_DESIGN: CakeDesign = { tiers: 1, frosting: "peach", drip: "ombre", topping: "roses" };
+/** Homepage hero: a tall white-and-peach buttercream celebration cake with roses, rosettes and gold hearts. */
+export const HERO_DESIGN: CakeDesign = { tiers: 1, frosting: "peach", drip: "ombre", topping: "roses" };
 
 const pick = <T extends string | number>(v: unknown, allowed: readonly T[], fallback: T): T =>
   allowed.includes(v as T) ? (v as T) : fallback;
@@ -69,10 +73,14 @@ export function describeDesign(d: CakeDesign): string {
   const colour = FROSTINGS.find((f) => f.value === d.frosting)!.label.toLowerCase();
   const tiers = `${d.tiers} tier${d.tiers > 1 ? "s" : ""}`;
   const parts =
-    d.drip === "mirror" ? [`${tiers} in a ${colour} marble mirror glaze`] : [`${tiers} with ${colour} frosting`];
+    d.drip === "mirror"
+      ? [`${tiers} in a ${colour} marble mirror glaze`]
+      : d.drip === "ombre"
+        ? [`${tiers} in white and ${colour} buttercream`]
+        : [`${tiers} with ${colour} frosting`];
   if (d.drip === "gold" || d.drip === "chocolate") parts.push(d.drip === "gold" ? "a gold drip" : "a chocolate ganache drip");
   const topping = d.topping === "none" ? null : TOPPINGS.find((t) => t.value === d.topping)!.label.toLowerCase();
-  if (d.drip === "mirror") return topping ? `${parts[0]}, finished with ${topping}` : parts[0];
+  if (d.drip === "mirror" || d.drip === "ombre") return topping ? `${parts[0]}, finished with ${topping}` : parts[0];
   if (topping) parts.push(topping);
   const last = parts.pop()!;
   return parts.length ? `${parts.join(", ")} and ${last}` : last;
