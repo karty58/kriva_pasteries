@@ -35,7 +35,7 @@ export function SiteHeader() {
           <ul className="flex items-center gap-8 text-[0.95rem]">
             {NAV.map((n) => (
               <li key={n.href}>
-                <Link href={n.href} className="text-charcoal/85 transition-colors hover:text-burgundy">
+                <Link href={n.href} className="text-charcoal/85 transition-colors hover:text-brand">
                   {n.label}
                 </Link>
               </li>
@@ -46,7 +46,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/cart"
-            className="relative inline-flex h-11 items-center gap-2 rounded-full border border-burgundy/25 px-4 text-sm font-medium text-burgundy hover:border-burgundy"
+            className="relative inline-flex h-11 items-center gap-2 rounded-full border border-brand/25 px-4 text-sm font-medium text-brand hover:border-brand"
             aria-label={`Cart, ${ready ? count : 0} item${count === 1 ? "" : "s"}`}
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -55,7 +55,7 @@ export function SiteHeader() {
             </svg>
             <span>Cart</span>
             <span
-              className="grid min-w-6 place-items-center rounded-full bg-burgundy px-1.5 text-xs leading-6 text-ivory"
+              className="grid min-w-6 place-items-center rounded-full bg-brand px-1.5 text-xs leading-6 text-ivory"
               aria-hidden="true"
             >
               {ready ? count : 0}
@@ -63,7 +63,7 @@ export function SiteHeader() {
           </Link>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-burgundy/25 text-burgundy lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand/25 text-brand lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((o) => !o)}
@@ -80,7 +80,7 @@ export function SiteHeader() {
           <ul className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
             {NAV.map((n) => (
               <li key={n.href}>
-                <Link href={n.href} className="block py-3 font-display text-2xl text-burgundy">
+                <Link href={n.href} className="block py-3 font-display text-2xl text-brand">
                   {n.label}
                 </Link>
               </li>

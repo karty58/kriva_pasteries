@@ -13,7 +13,7 @@ export default async function CheckoutPage({ searchParams }: PageProps<"/checkou
   if (isDemoMode()) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="font-display text-5xl text-burgundy">Checkout isn&apos;t connected yet</h1>
+        <h1 className="font-display text-5xl text-brand">Checkout isn&apos;t connected yet</h1>
         <p className="mt-4 text-muted">This preview runs on sample data. Please order on WhatsApp from your cart.</p>
         <Link href="/cart" className="btn btn-primary mt-8">Back to cart</Link>
       </div>

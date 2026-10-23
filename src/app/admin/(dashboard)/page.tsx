@@ -42,15 +42,15 @@ export default async function AdminOverview() {
       <PageTitle>Overview</PageTitle>
       {samples > 0 && (
         <div className="mb-6 rounded-md border border-champagne bg-champagne-soft/40 px-4 py-3 text-sm">
-          {samples} sample product{samples > 1 ? "s are" : " is"} still listed with placeholder prices.{" "}
-          <Link href="/admin/products?filter=sample" className="font-medium underline">Review sample products</Link>
+          {samples} product{samples > 1 ? "s still have" : " still has"} a placeholder price.{" "}
+          <Link href="/admin/products?filter=sample" className="font-medium underline">Confirm prices</Link>
         </div>
       )}
       <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         {stats.map(([label, n, href]) => (
           <li key={label}>
-            <Link href={href} className="block rounded-md border border-cream-deep bg-white px-4 py-4 hover:border-burgundy">
-              <span className="block font-display text-4xl text-burgundy">{n}</span>
+            <Link href={href} className="block rounded-md border border-cream-deep bg-white px-4 py-4 hover:border-brand">
+              <span className="block font-display text-4xl text-brand">{n}</span>
               <span className="text-sm text-muted">{label}</span>
             </Link>
           </li>
@@ -77,7 +77,7 @@ export default async function AdminOverview() {
               <tbody>
                 {recent.data.map((o) => (
                   <tr key={o.id} className="border-t border-cream-deep">
-                    <td className="px-4 py-2"><Link href={`/admin/orders/${o.id}`} className="font-medium text-burgundy underline">{o.reference}</Link></td>
+                    <td className="px-4 py-2"><Link href={`/admin/orders/${o.id}`} className="font-medium text-brand underline">{o.reference}</Link></td>
                     <td className="px-4 py-2">{o.customer_name}</td>
                     <td className="px-4 py-2">{formatIST(o.requested_for)}</td>
                     <td className="px-4 py-2">{formatINR(o.total_paise)}</td>

@@ -70,7 +70,7 @@ export function CheckoutForm(props: {
   if (lines.length === 0) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="font-display text-5xl text-burgundy">Your cart is empty</h1>
+        <h1 className="font-display text-5xl text-brand">Your cart is empty</h1>
         <Link href="/collection" className="btn btn-primary mt-8">Explore the collection</Link>
       </div>
     );
@@ -78,7 +78,7 @@ export function CheckoutForm(props: {
   if (!props.onlineAvailable && !props.offlineAvailable) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="font-display text-4xl text-burgundy">Website orders are paused</h1>
+        <h1 className="font-display text-4xl text-brand">Website orders are paused</h1>
         <p className="mt-4 text-muted">Please order on WhatsApp from your cart for now.</p>
         <Link href="/cart" className="btn btn-primary mt-8">Back to cart</Link>
       </div>
@@ -137,11 +137,11 @@ export function CheckoutForm(props: {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <h1 className="font-display text-5xl text-burgundy">Checkout</h1>
+      <h1 className="font-display text-5xl text-brand">Checkout</h1>
       <ol className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted" aria-label="Checkout steps">
         {STEPS.map((s, i) => (
           <li key={s} className="flex items-center gap-2">
-            <span className="grid h-6 w-6 place-items-center rounded-full border border-burgundy/40 text-xs text-burgundy">{i + 1}</span>
+            <span className="grid h-6 w-6 place-items-center rounded-full border border-brand/40 text-xs text-brand">{i + 1}</span>
             {s}
           </li>
         ))}
@@ -179,7 +179,7 @@ export function CheckoutForm(props: {
             {props.pickupEnabled && props.deliveryEnabled && (
               <div className="flex gap-2">
                 {(["pickup", "delivery"] as const).map((m) => (
-                  <label key={m} className={`cursor-pointer rounded-full border px-5 py-2 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-burgundy ${fulfilment === m ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep"}`}>
+                  <label key={m} className={`cursor-pointer rounded-full border px-5 py-2 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${fulfilment === m ? "border-brand bg-brand text-ivory" : "border-cream-deep"}`}>
                     <input type="radio" className="sr-only" name="fulfilment" checked={fulfilment === m} onChange={() => setFulfilment(m)} />
                     {m === "pickup" ? "Pickup from shop" : "Delivery"}
                   </label>
@@ -231,8 +231,8 @@ export function CheckoutForm(props: {
           <fieldset className="space-y-3">
             <legend className="mb-2 font-display text-3xl">3. Payment</legend>
             {props.onlineAvailable && (
-              <label className={`flex cursor-pointer gap-3 rounded-md border p-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-burgundy ${paymentMethod === "online" ? "border-burgundy bg-cream" : "border-cream-deep"}`}>
-                <input type="radio" name="payment" className="mt-1 accent-burgundy" checked={paymentMethod === "online"} onChange={() => setPaymentMethod("online")} />
+              <label className={`flex cursor-pointer gap-3 rounded-md border p-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${paymentMethod === "online" ? "border-brand bg-cream" : "border-cream-deep"}`}>
+                <input type="radio" name="payment" className="mt-1 accent-brand" checked={paymentMethod === "online"} onChange={() => setPaymentMethod("online")} />
                 <span>
                   <span className="block font-medium">Google Pay / UPI</span>
                   <span className="hint block">
@@ -243,8 +243,8 @@ export function CheckoutForm(props: {
               </label>
             )}
             {props.offlineAvailable && (
-              <label className={`flex cursor-pointer gap-3 rounded-md border p-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-burgundy ${paymentMethod === "offline" ? "border-burgundy bg-cream" : "border-cream-deep"}`}>
-                <input type="radio" name="payment" className="mt-1 accent-burgundy" checked={paymentMethod === "offline"} onChange={() => setPaymentMethod("offline")} />
+              <label className={`flex cursor-pointer gap-3 rounded-md border p-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${paymentMethod === "offline" ? "border-brand bg-cream" : "border-cream-deep"}`}>
+                <input type="radio" name="payment" className="mt-1 accent-brand" checked={paymentMethod === "offline"} onChange={() => setPaymentMethod("offline")} />
                 <span>
                   <span className="block font-medium">Arrange payment with KRIVA</span>
                   <span className="hint block">Send your order request now; KRIVA contacts you to confirm and arrange payment.</span>

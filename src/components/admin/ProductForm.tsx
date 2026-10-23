@@ -146,14 +146,23 @@ export function ProductForm({ product, categories }: { product: Product | null; 
             ["requires_approval", "I confirm before the customer pays (custom work)", false],
           ] as const).map(([k, l, def]) => (
             <label key={k} className="flex items-center gap-2 text-sm">
-              <input type="checkbox" name={k} defaultChecked={check(k, def)} className="accent-burgundy" /> {l}
+              <input type="checkbox" name={k} defaultChecked={check(k, def)} className="accent-brand" /> {l}
             </label>
           ))}
         </fieldset>
       </section>
 
       <section className="space-y-4 rounded-md border border-cream-deep bg-white p-5">
-        <h2 className="font-display text-2xl">Ingredients &amp; allergens</h2>
+        <h2 className="font-display text-2xl">Dietary, ingredients &amp; allergens</h2>
+        <fieldset className="flex flex-wrap gap-6">
+          <legend className="label">Dietary options (shown as badges and filters)</legend>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="diet_eggless" defaultChecked={product?.dietary_tags.includes("eggless") ?? false} className="accent-brand" /> Eggless available
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="diet_sugar-free" defaultChecked={product?.dietary_tags.includes("sugar-free") ?? false} className="accent-brand" /> Sugar-free
+          </label>
+        </fieldset>
         <div>
           <label htmlFor="ingredients" className="label">Ingredients (optional)</label>
           <textarea id="ingredients" name="ingredients" maxLength={2000} className="field min-h-20" defaultValue={product?.ingredients ?? ""} />

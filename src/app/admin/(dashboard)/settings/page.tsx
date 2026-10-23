@@ -21,7 +21,7 @@ function Field({ name, label, defaultValue, hint, type = "text", ...rest }: { na
 }
 
 function Check({ name, label, checked }: { name: string; label: string; checked: boolean }) {
-  return <label className="flex items-center gap-2 text-sm"><input type="checkbox" name={name} defaultChecked={checked} className="accent-burgundy" /> {label}</label>;
+  return <label className="flex items-center gap-2 text-sm"><input type="checkbox" name={name} defaultChecked={checked} className="accent-brand" /> {label}</label>;
 }
 
 export default async function SettingsPage() {

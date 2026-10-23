@@ -37,10 +37,10 @@ export default async function ProductsPage({ searchParams }: PageProps<"/admin/p
           <button className="btn btn-outline btn-sm">Search</button>
         </form>
         <ul className="flex flex-wrap gap-2 text-sm">
-          {[["", "All"], ["available", "Available"], ["sold_out", "Sold out"], ["hidden", "Hidden"], ["sample", "Samples"]].map(([v, l]) => (
+          {[["", "All"], ["available", "Available"], ["sold_out", "Sold out"], ["hidden", "Hidden"], ["sample", "Placeholder prices"]].map(([v, l]) => (
             <li key={v}>
               <Link href={v ? `/admin/products?filter=${v}` : "/admin/products"} aria-current={filter === v ? "page" : undefined}
-                className={`inline-block rounded-full border px-3 py-1.5 ${filter === v ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep bg-white"}`}>{l}</Link>
+                className={`inline-block rounded-full border px-3 py-1.5 ${filter === v ? "border-brand bg-brand text-ivory" : "border-cream-deep bg-white"}`}>{l}</Link>
             </li>
           ))}
         </ul>
@@ -64,10 +64,10 @@ export default async function ProductsPage({ searchParams }: PageProps<"/admin/p
                   {img && <Image src={imageUrl(img.storage_path)} alt="" fill sizes="56px" className="object-cover" unoptimized={img.storage_path.endsWith(".svg")} />}
                 </div>
                 <div className="min-w-48 flex-1">
-                  <Link href={`/admin/products/${p.id}`} className="font-medium text-burgundy underline">{p.name}</Link>
+                  <Link href={`/admin/products/${p.id}`} className="font-medium text-brand underline">{p.name}</Link>
                   <p className="text-xs text-muted">
                     {cat?.name ?? "No category"} · {prices.length ? `from ${formatINR(Math.min(...prices))}` : "no price"}
-                    {p.is_sample && " · SAMPLE"}{!p.is_active && " · hidden"}{p.is_featured && " · featured"}
+                    {p.is_sample && " · PLACEHOLDER PRICE"}{!p.is_active && " · hidden"}{p.is_featured && " · featured"}
                   </p>
                 </div>
                 <form action={quickUpdateProduct} className="flex items-center gap-2">

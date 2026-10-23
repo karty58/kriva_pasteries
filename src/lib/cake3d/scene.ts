@@ -33,7 +33,7 @@ function seeded(seed: number) {
 }
 
 const TIER_SPECS: Record<1 | 2 | 3, { r: number; h: number }[]> = {
-  1: [{ r: 1.25, h: 1.0 }],
+  1: [{ r: 1.25, h: 0.82 }],
   2: [{ r: 1.3, h: 0.9 }, { r: 0.88, h: 0.78 }],
   3: [{ r: 1.32, h: 0.8 }, { r: 0.98, h: 0.7 }, { r: 0.66, h: 0.6 }],
 };
@@ -359,12 +359,97 @@ function tierGeometry(T: THREE, r: number, h: number) {
     const a = -Math.PI / 2 + (i / 6) * (Math.PI / 2);
     pts.push(new T.Vector2(r - bev + Math.cos(a) * bev, bev + Math.sin(a) * bev));
   }
+  for (let i = 1; i < 8; i++) pts.push(new T.Vector2(r, bev + ((h - 2 * bev) * i) / 8));
   for (let i = 0; i <= 6; i++) {
     const a = (i / 6) * (Math.PI / 2);
     pts.push(new T.Vector2(r - bev + Math.cos(a) * bev, h - bev + Math.sin(a) * bev));
   }
   pts.push(new T.Vector2(0, h));
   return new T.LatheGeometry(pts, 96);
+}
+
+/** Marble swirl texture for the mirror glaze, drawn on a canvas in the frosting colour. */
+function marbleTexture(T: THREE, base: ThreeNS.Color, rand: () => number) {
+  const W = 1024;
+  const H = 512;
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  const g = c.getContext("2d")!;
+  const hsl = { h: 0, s: 0, l: 0 };
+  base.getHSL(hsl);
+  const light = hsl.l > 0.6;
+  const hex = (col: ThreeNS.Color) => `#${col.getHexString()}`;
+  g.fillStyle = hex(base);
+  g.fillRect(0, 0, W, H);
+
+  // A vein is a smooth, mostly vertical flow (top of the cake to the bottom)
+  // built from two sine waves, so it reads as poured glaze, not zigzags.
+  const vein = (x0: number, amp: number, width: number, color: string, alpha: number) => {
+    const f1 = 0.006 + rand() * 0.006;
+    const f2 = 0.017 + rand() * 0.01;
+    const p1 = rand() * Math.PI * 2;
+    const p2 = rand() * Math.PI * 2;
+    const left: [number, number][] = [];
+    const right: [number, number][] = [];
+    for (let y = -20; y <= H + 20; y += 8) {
+      const x = x0 + Math.sin(y * f1 + p1) * amp + Math.sin(y * f2 + p2) * amp * 0.35;
+      const w = width * (0.55 + 0.45 * Math.sin(y * 0.011 + p2));
+      left.push([x - w / 2, y]);
+      right.push([x + w / 2, y]);
+    }
+    g.globalAlpha = alpha;
+    g.fillStyle = color;
+    g.beginPath();
+    left.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+    right.reverse().forEach(([x, y]) => g.lineTo(x, y));
+    g.closePath();
+    g.fill();
+  };
+  const xs = (n: number) => Array.from({ length: n }, (_, i) => ((i + 0.5 + (rand() - 0.5) * 0.6) / n) * W);
+
+  const deep = hex(base.clone().offsetHSL(0, 0.02, light ? -0.2 : -0.13));
+  const pale = hex(base.clone().offsetHSL(0, -0.08, light ? 0.08 : 0.22));
+  const canFilter = "filter" in g;
+
+  // 1) broad soft bands for depth
+  if (canFilter) g.filter = "blur(18px)";
+  xs(5).forEach((x) => vein(x, 70, 90 + rand() * 70, deep, 0.55));
+  xs(4).forEach((x) => vein(x + 60, 60, 70 + rand() * 50, pale, 0.5));
+  // 2) cream ribbons
+  if (canFilter) g.filter = "blur(3px)";
+  xs(4).forEach((x) => vein(x + 30, 55, 14 + rand() * 16, "#f6eadb", 0.85));
+  // 3) fine gold threads
+  if (canFilter) g.filter = "blur(0.6px)";
+  xs(3).forEach((x) => vein(x - 40, 45, 3 + rand() * 2, "#d8b56e", 0.9));
+  g.globalAlpha = 1;
+  if (canFilter) g.filter = "none";
+
+  const tex = new T.CanvasTexture(c);
+  tex.colorSpace = T.SRGBColorSpace;
+  tex.wrapS = T.RepeatWrapping;
+  tex.anisotropy = 4;
+  return tex;
+}
+
+/** Spread the texture evenly: sides use the lower 75% (wrapped around), the top is mapped flat. */
+function remapGlazeUVs(geo: ThreeNS.BufferGeometry, r: number, h: number) {
+  const pos = geo.getAttribute("position");
+  const uv = geo.getAttribute("uv");
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const yv = pos.getY(i);
+    const z = pos.getZ(i);
+    const rho = Math.hypot(x, z);
+    const onTop = yv > h - 0.08 && rho < r - 0.02;
+    if (onTop) {
+      // Flat (planar) mapping on the top so the marble doesn't pinch at the centre
+      uv.setXY(i, 0.35 + (x / r) * 0.18, 0.86 + (z / r) * 0.12);
+    } else {
+      uv.setY(i, (yv / h) * 0.75);
+    }
+  }
+  uv.needsUpdate = true;
 }
 
 function buildCake(T: THREE, d: CakeDesign) {
@@ -392,20 +477,40 @@ function buildCake(T: THREE, d: CakeDesign) {
     d.drip === "gold"
       ? new T.MeshStandardMaterial({ color: 0xe3bd6a, metalness: 0.9, roughness: 0.22, envMapIntensity: 1.6 })
       : new T.MeshPhysicalMaterial({ color: 0x3a1c13, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.12 });
+  const mirror = d.drip === "mirror";
+  const glaze = mirror
+    ? new T.MeshPhysicalMaterial({
+        map: marbleTexture(T, frostColor, rand),
+        roughness: 0.12,
+        clearcoat: 1,
+        clearcoatRoughness: 0.04,
+        envMapIntensity: 1.3,
+      })
+    : null;
+  const goldTrim = new T.MeshStandardMaterial({ color: 0xd8b56e, metalness: 0.9, roughness: 0.25, envMapIntensity: 1.5 });
   // Flat flakes mostly mirror the walls, so a little warm glow keeps them reading as gold
   const goldLeaf = new T.MeshStandardMaterial({ color: 0xf3d27e, metalness: 0.6, roughness: 0.3, emissive: 0xa9792a, emissiveIntensity: 0.55, side: T.DoubleSide });
 
   const tiers = TIER_SPECS[d.tiers];
   let y = STAND_TOP;
   tiers.forEach((t, i) => {
-    const tier = new T.Mesh(tierGeometry(T, t.r, t.h), frosting);
+    const geo = tierGeometry(T, t.r, t.h);
+    if (glaze) remapGlazeUVs(geo, t.r, t.h);
+    const tier = new T.Mesh(geo, glaze ?? frosting);
     tier.position.y = y;
     tier.castShadow = true;
     tier.receiveShadow = true;
     group.add(tier);
 
+    // Mirror-glazed tiers get a thin gold band at the base instead of piping
+    if (mirror) {
+      const band = new T.Mesh(new T.TorusGeometry(t.r + 0.004, 0.018, 10, 128), goldTrim);
+      band.rotation.x = Math.PI / 2;
+      band.position.y = y + 0.03;
+      group.add(band);
+    }
     // Piped bead border around the base of each tier
-    const beads = Math.round(t.r * 34);
+    const beads = mirror ? 0 : Math.round(t.r * 34);
     const beadGeo = new T.SphereGeometry(0.055, 14, 10);
     for (let b = 0; b < beads; b++) {
       const a = (b / beads) * Math.PI * 2;
@@ -419,7 +524,7 @@ function buildCake(T: THREE, d: CakeDesign) {
     const isTop = i === tiers.length - 1;
 
     // Drip runs down the top tier only, for a clean look
-    if (isTop && d.drip !== "none") {
+    if (isTop && (d.drip === "chocolate" || d.drip === "gold")) {
       const cap = new T.Mesh(new T.CylinderGeometry(t.r + 0.012, t.r + 0.012, 0.045, 96), dripMat);
       cap.position.y = y + t.h - 0.005;
       cap.castShadow = true;
@@ -452,7 +557,7 @@ function buildCake(T: THREE, d: CakeDesign) {
   });
 
   const top = tiers[tiers.length - 1];
-  const topY = y + (d.drip !== "none" ? 0.02 : 0);
+  const topY = y + (d.drip === "chocolate" || d.drip === "gold" ? 0.02 : 0);
   let extra = 0;
 
   if (d.topping === "berries") {

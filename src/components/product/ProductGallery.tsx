@@ -32,7 +32,7 @@ export function ProductGallery({ images, name }: { images: ProductImage[]; name:
                 onClick={() => setActive(i)}
                 aria-label={`Show photo ${i + 1} of ${images.length}`}
                 aria-pressed={i === active}
-                className={`relative block h-20 w-16 overflow-hidden rounded-md border-2 ${i === active ? "border-burgundy" : "border-transparent"}`}
+                className={`relative block h-20 w-16 overflow-hidden rounded-md border-2 ${i === active ? "border-brand" : "border-transparent"}`}
               >
                 <Image src={img.url} alt="" fill sizes="64px" className="object-cover" unoptimized={img.url.endsWith(".svg")} />
               </button>

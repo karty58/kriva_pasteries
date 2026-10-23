@@ -4,14 +4,15 @@
  * in tests. (Database rules themselves are tested against real Postgres in tests/db.)
  */
 import { randomUUID } from "node:crypto";
-import { DEFAULT_SETTINGS, DEMO_PRODUCTS } from "@/lib/demo-data";
+import { DEFAULT_SETTINGS } from "@/lib/demo-data";
+import { FIXTURE_PRODUCTS } from "../fixtures/sample-catalogue";
 
 type Row = Record<string, unknown>;
 type Filter = (r: Row) => boolean;
 
 export class FakeDb {
   tables: Record<string, Row[]> = {
-    site_settings: [{ id: 1, ...DEFAULT_SETTINGS, online_payments_enabled: true }],
+    site_settings: [{ id: 1, ...DEFAULT_SETTINGS, business_hours: null, default_lead_time_hours: 24, online_payments_enabled: true }],
     products: [],
     product_variants: [],
     product_flavours: [],
@@ -24,7 +25,7 @@ export class FakeDb {
   rateHits = new Map<string, number>();
 
   constructor() {
-    for (const p of DEMO_PRODUCTS) {
+    for (const p of FIXTURE_PRODUCTS) {
       const { variants, flavours, images, category, ...row } = p;
       void category;
       this.tables.products.push(structuredClone(row));

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Chocolate caramel sandwich (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <rect x="230" y="660" width="340" height="70" rx="12" fill="#5B3426"/>
+    <rect x="236" y="612" width="328" height="52" rx="10" fill="#C77B2E"/>
+    <path d="M250 664 q20 30 40 0 M350 664 q14 24 28 0 M470 664 q18 28 36 0" fill="#C77B2E"/>
+    <rect x="230" y="555" width="340" height="66" rx="12" fill="#5B3426"/>
+    <circle cx="262" cy="575" r="5" fill="#3B1F16"/><circle cx="317" cy="575" r="5" fill="#3B1F16"/><circle cx="372" cy="575" r="5" fill="#3B1F16"/><circle cx="427" cy="575" r="5" fill="#3B1F16"/><circle cx="482" cy="575" r="5" fill="#3B1F16"/><circle cx="537" cy="575" r="5" fill="#3B1F16"/><circle cx="262" cy="601" r="5" fill="#3B1F16"/><circle cx="317" cy="601" r="5" fill="#3B1F16"/><circle cx="372" cy="601" r="5" fill="#3B1F16"/><circle cx="427" cy="601" r="5" fill="#3B1F16"/><circle cx="482" cy="601" r="5" fill="#3B1F16"/><circle cx="537" cy="601" r="5" fill="#3B1F16"/>
+    <path d="M260 566 l220 0" stroke="#fff" stroke-opacity=".2" stroke-width="6" stroke-linecap="round"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

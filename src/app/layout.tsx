@@ -22,16 +22,16 @@ const instrument = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(publicEnv.siteUrl),
   title: {
-    default: "KRIVA — Cakes & Pastries in Coimbatore",
+    default: "KRIVA Patisserie — Desserts & Pastries in Coimbatore",
     template: "%s | KRIVA",
   },
   description:
-    "Discover beautifully crafted cakes and delicate pastries from KRIVA, Coimbatore — thoughtfully made for your sweetest moments.",
+    "KRIVA Patisserie, Coimbatore: French and European-style entremets, pastries and desserts, with eggless and sugar-free choices and custom glazed cakes.",
   openGraph: {
     type: "website",
-    siteName: "KRIVA",
+    siteName: "KRIVA Patisserie",
     locale: "en_IN",
-    title: "KRIVA — Cakes & Pastries in Coimbatore",
+    title: "KRIVA Patisserie — Desserts & Pastries in Coimbatore",
     description: "Beautifully crafted cakes and delicate pastries, thoughtfully made for your sweetest moments.",
     images: [{ url: "/brand/og-image.png", width: 1200, height: 630, alt: "KRIVA" }],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#4a1420",
+  themeColor: "#2e3c32",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

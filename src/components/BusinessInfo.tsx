@@ -34,7 +34,7 @@ export function HoursList({ settings, tone = "dark" }: { settings: SiteSettings;
 
 export function ContactLines({ settings, tone = "dark" }: { settings: SiteSettings; tone?: "dark" | "light" }) {
   const muted = tone === "light" ? "text-ivory/70" : "text-muted";
-  const link = tone === "light" ? "underline decoration-ivory/40 underline-offset-4 hover:decoration-ivory" : "underline decoration-burgundy/30 underline-offset-4 hover:decoration-burgundy";
+  const link = tone === "light" ? "underline decoration-ivory/40 underline-offset-4 hover:decoration-ivory" : "underline decoration-brand/30 underline-offset-4 hover:decoration-brand";
   return (
     <ul className="space-y-2 text-[0.95rem]">
       <li>

@@ -53,7 +53,7 @@ export function CartView({
   if (lines.length === 0) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-        <h1 className="font-display text-5xl text-burgundy">Your cart is empty</h1>
+        <h1 className="font-display text-5xl text-brand">Your cart is empty</h1>
         <p className="mt-4 text-muted">Pick a cake or a box of pastries to get started.</p>
         <Link href="/collection" className="btn btn-primary mt-8">Explore the collection</Link>
       </div>
@@ -62,7 +62,7 @@ export function CartView({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <h1 className="font-display text-5xl text-burgundy">Your cart</h1>
+      <h1 className="font-display text-5xl text-brand">Your cart</h1>
 
       <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_22rem]">
         <ul className="divide-y divide-cream-deep border-y border-cream-deep">
@@ -78,7 +78,7 @@ export function CartView({
                   )}
                 </div>
                 <div>
-                  <Link href={`/product/${l.display.slug}`} className="font-display text-xl hover:text-burgundy">{l.display.name}</Link>
+                  <Link href={`/product/${l.display.slug}`} className="font-display text-xl hover:text-brand">{l.display.name}</Link>
                   <p className="text-sm text-muted">
                     {[l.display.variantLabel, l.display.flavourName].filter(Boolean).join(", ")}
                   </p>
@@ -114,7 +114,7 @@ export function CartView({
               <legend className="label">How would you like it?</legend>
               <div className="flex gap-2">
                 {(["pickup", "delivery"] as const).map((m) => (
-                  <label key={m} className={`flex-1 cursor-pointer rounded-full border px-3 py-2 text-center text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-burgundy ${fulfilment === m ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep bg-ivory"}`}>
+                  <label key={m} className={`flex-1 cursor-pointer rounded-full border px-3 py-2 text-center text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${fulfilment === m ? "border-brand bg-brand text-ivory" : "border-cream-deep bg-ivory"}`}>
                     <input type="radio" className="sr-only" name="fulfilment" checked={fulfilment === m} onChange={() => setFulfilment(m)} />
                     {m === "pickup" ? "Pickup" : "Delivery"}
                   </label>

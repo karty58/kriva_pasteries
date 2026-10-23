@@ -6,6 +6,8 @@ export type PaymentStatus = "pending" | "paid" | "failed" | "cancelled" | "refun
 export type PaymentMethod = "online" | "offline";
 export type FulfilmentMethod = "pickup" | "delivery";
 export type ApprovalMode = "pay_immediately" | "approve_then_pay";
+export type DietaryTag = "eggless" | "sugar-free";
+export const DIETARY_LABELS: Record<DietaryTag, string> = { eggless: "Eggless available", "sugar-free": "Sugar-free" };
 
 export interface Category {
   id: string;
@@ -59,6 +61,7 @@ export interface Product {
   is_featured: boolean;
   is_bestseller: boolean;
   is_signature: boolean;
+  dietary_tags: DietaryTag[];
   ingredients: string | null;
   allergens: string | null;
   is_sample: boolean;

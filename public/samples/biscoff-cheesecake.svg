@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Lotus Biscoff cheesecake (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <path d="M200 520 L600 520 L600 740 Q400 772 200 740 Z" fill="#FBF0D9"/>
+    <rect x="200" y="716" width="400" height="34" fill="#B97B3F"/>
+    <path d="M200 520 Q400 488 600 520 L600 552 Q400 520 200 552 Z" fill="#B0682A"/>
+    <path d="M220 548 Q260 600 250 640 M330 540 Q350 590 340 610 M470 538 Q490 600 480 650 M560 545 Q575 585 570 600" stroke="#B0682A" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <g transform="translate(290 488) rotate(-12)"><rect x="-38" y="-24" width="76" height="48" rx="6" fill="#C98B4A"/><rect x="-30" y="-16" width="60" height="32" rx="4" fill="none" stroke="#A86D33" stroke-width="3"/></g><g transform="translate(400 488) rotate(-12)"><rect x="-38" y="-24" width="76" height="48" rx="6" fill="#C98B4A"/><rect x="-30" y="-16" width="60" height="32" rx="4" fill="none" stroke="#A86D33" stroke-width="3"/></g><g transform="translate(510 488) rotate(-12)"><rect x="-38" y="-24" width="76" height="48" rx="6" fill="#C98B4A"/><rect x="-30" y="-16" width="60" height="32" rx="4" fill="none" stroke="#A86D33" stroke-width="3"/></g>
+    <rect x="200" y="520" width="400" height="230" fill="url(#shade)"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

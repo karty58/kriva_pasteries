@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Banoffee (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <path d="M200 560 L600 560 L585 745 Q400 775 215 745 Z" fill="#C88A4A"/>
+    <path d="M205 600 L595 600 L590 660 L210 660 Z" fill="#A45F25"/>
+    <path d="M200 520 Q400 470 600 520 L600 565 Q400 540 200 565 Z" fill="#FFF8EE"/>
+    <circle cx="260" cy="515" r="22" fill="#F4E3A1" stroke="#E2CC7C" stroke-width="4"/><circle cx="330" cy="507" r="22" fill="#F4E3A1" stroke="#E2CC7C" stroke-width="4"/><circle cx="400" cy="515" r="22" fill="#F4E3A1" stroke="#E2CC7C" stroke-width="4"/><circle cx="470" cy="507" r="22" fill="#F4E3A1" stroke="#E2CC7C" stroke-width="4"/><circle cx="540" cy="515" r="22" fill="#F4E3A1" stroke="#E2CC7C" stroke-width="4"/>
+    <path d="M240 505 Q300 490 360 500 Q420 510 480 495 Q530 485 560 500" stroke="#A45F25" stroke-width="6" fill="none"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

@@ -19,7 +19,7 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/or
   if (!order) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="font-display text-4xl text-burgundy">We couldn&apos;t find that order</h1>
+        <h1 className="font-display text-4xl text-brand">We couldn&apos;t find that order</h1>
         <p className="mt-4 text-muted">
           Please open the exact link from your order confirmation. If you&apos;ve lost it, contact KRIVA with your order reference.
         </p>
@@ -39,7 +39,7 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/or
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <p className="text-sm text-muted">Order reference</p>
       <p className="font-display text-3xl tracking-wide">{order.reference}</p>
-      <h1 className="mt-6 font-display text-5xl text-burgundy">{status.title}</h1>
+      <h1 className="mt-6 font-display text-5xl text-brand">{status.title}</h1>
       <p className="mt-3 max-w-prose text-lg">{status.detail}</p>
 
       <dl className="mt-8 grid gap-4 rounded-md bg-cream p-6 sm:grid-cols-2">

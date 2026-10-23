@@ -143,7 +143,7 @@ export function OrderPaymentPanel({
 
   const busy = phase !== "idle";
   return (
-    <section aria-labelledby="pay-title" className="mt-8 rounded-md border border-burgundy/30 p-6">
+    <section aria-labelledby="pay-title" className="mt-8 rounded-md border border-brand/30 p-6">
       <h2 id="pay-title" className="font-display text-2xl">Payment</h2>
       {canPay ? (
         <>

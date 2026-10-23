@@ -9,7 +9,7 @@ export default async function ContactPage() {
   const s = await getSettings();
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-      <h1 className="font-display text-5xl text-burgundy sm:text-6xl">Visit &amp; contact</h1>
+      <h1 className="font-display text-5xl text-brand sm:text-6xl">Visit &amp; contact</h1>
       <p className="mt-4 max-w-xl text-muted">{s.city}, {s.region}, {s.country}</p>
       <div className="mt-12 grid gap-12 md:grid-cols-2">
         <section aria-labelledby="c-title">

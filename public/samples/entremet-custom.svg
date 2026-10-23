@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Custom glazed entremet (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <defs><pattern id="m2" width="420" height="300" patternUnits="userSpaceOnUse">
+  <rect width="420" height="300" fill="#EFC9CD"/>
+  <path d="M-20 60 C 80 10, 160 130, 260 70 S 400 30, 460 90" stroke="#FFFFFF" stroke-width="18" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 130 C 80 80, 160 190, 260 130 S 400 110, 460 150" stroke="#D88A97" stroke-width="14" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 200 C 80 150, 160 250, 260 190 S 400 190, 460 210" stroke="#C4A46B" stroke-width="10" fill="none" stroke-linecap="round" opacity=".85"/>
+</pattern></defs>
+    <path d="M200 580 Q200 495 400 490 Q600 495 600 580 L600 745 Q400 785 200 745 Z" fill="url(#m2)"/>
+    <path d="M200 580 Q200 495 400 490 Q600 495 600 580 L600 745 Q400 785 200 745 Z" fill="url(#shade)"/>
+    <path d="M240 540 Q310 505 400 503" stroke="#fff" stroke-opacity=".6" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <circle cx="250" cy="746" r="11" fill="#FFF8EE"/><circle cx="287.5" cy="747.6829419696157" r="11" fill="#FFF8EE"/><circle cx="325" cy="747.8185948536513" r="11" fill="#FFF8EE"/><circle cx="362.5" cy="746.2822400161198" r="11" fill="#FFF8EE"/><circle cx="400" cy="744.4863950093842" r="11" fill="#FFF8EE"/><circle cx="437.5" cy="744.0821514506737" r="11" fill="#FFF8EE"/><circle cx="475" cy="745.4411690036021" r="11" fill="#FFF8EE"/><circle cx="512.5" cy="747.3139731974376" r="11" fill="#FFF8EE"/><circle cx="550" cy="747.9787164932468" r="11" fill="#FFF8EE"/>
+    <path d="M370 470 q30 -60 60 0 q-30 25 -60 0z" fill="#D2AD62"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

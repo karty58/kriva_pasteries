@@ -5,6 +5,7 @@ import { getProductBySlug, getRelatedProducts, getSettings } from "@/lib/catalog
 import { ProductGrid } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductOptions } from "@/components/product/ProductOptions";
+import { DIETARY_LABELS } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<"/product/[slug]">)
 }
 
 function leadTimeText(hours: number) {
-  if (hours === 0) return "Usually available the same day — subject to confirmation.";
+  if (hours === 0) return "Subject to the day's availability. KRIVA confirms every order.";
   if (hours < 24) return `Please order at least ${hours} hours ahead.`;
   const days = Math.round(hours / 24);
   return `Please order at least ${days} day${days === 1 ? "" : "s"} ahead.`;
@@ -38,11 +39,11 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted">
         <ol className="flex flex-wrap gap-2">
-          <li><Link href="/collection" className="hover:text-burgundy">Collection</Link></li>
+          <li><Link href="/collection" className="hover:text-brand">Collection</Link></li>
           {product.category && (
             <>
               <li aria-hidden="true">/</li>
-              <li><Link href={`/collection?category=${product.category.slug}`} className="hover:text-burgundy">{product.category.name}</Link></li>
+              <li><Link href={`/collection?category=${product.category.slug}`} className="hover:text-brand">{product.category.name}</Link></li>
             </>
           )}
         </ol>
@@ -52,11 +53,20 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
         <ProductGallery images={product.images} name={product.name} />
 
         <div>
-          <h1 className="font-display text-4xl leading-tight text-burgundy sm:text-5xl">{product.name}</h1>
+          <h1 className="font-display text-4xl leading-tight text-brand sm:text-5xl">{product.name}</h1>
           {product.is_sample && (
             <p className="mt-3 inline-block rounded-full bg-champagne-soft px-3 py-1 text-xs">
-              Sample listing — details and prices are placeholders
+              {product.images[0]?.url.endsWith(".svg")
+                ? "Placeholder price and illustration — KRIVA will confirm the real price, sizes and photo"
+                : "Placeholder price — KRIVA will confirm the real price and sizes"}
             </p>
+          )}
+          {product.dietary_tags.length > 0 && (
+            <ul className="mt-3 flex flex-wrap gap-2" aria-label="Dietary options">
+              {product.dietary_tags.map((t) => (
+                <li key={t} className="rounded-full border border-champagne/60 bg-champagne-soft/60 px-3 py-1 text-sm text-charcoal">{DIETARY_LABELS[t]}</li>
+              ))}
+            </ul>
           )}
           {product.description && <p className="mt-5 max-w-prose text-[1.05rem] text-charcoal/90">{product.description}</p>}
           <p className="mt-4 text-sm text-muted">{leadTimeText(product.lead_time_hours)}</p>
@@ -89,7 +99,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
 
       {related.length > 0 && (
         <section aria-labelledby="related-title" className="mt-20 border-t border-cream-deep pt-14">
-          <h2 id="related-title" className="mb-8 font-display text-4xl text-burgundy">You may also like</h2>
+          <h2 id="related-title" className="mb-8 font-display text-4xl text-brand">You may also like</h2>
           <ProductGrid products={related} />
         </section>
       )}

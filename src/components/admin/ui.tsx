@@ -4,7 +4,7 @@ import type { OrderStatus, PaymentStatus } from "@/lib/types";
 export function PageTitle({ children, actions }: { children: React.ReactNode; actions?: React.ReactNode }) {
   return (
     <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-      <h1 className="font-display text-4xl text-burgundy">{children}</h1>
+      <h1 className="font-display text-4xl text-brand">{children}</h1>
       {actions}
     </div>
   );
@@ -12,8 +12,8 @@ export function PageTitle({ children, actions }: { children: React.ReactNode; ac
 
 const ORDER_TONE: Record<OrderStatus, string> = {
   pending: "bg-champagne-soft text-charcoal",
-  confirmed: "bg-burgundy/10 text-burgundy",
-  preparing: "bg-burgundy/10 text-burgundy",
+  confirmed: "bg-brand/10 text-brand",
+  preparing: "bg-brand/10 text-brand",
   ready: "bg-success/10 text-success",
   completed: "bg-cream-deep text-charcoal",
   cancelled: "bg-danger/10 text-danger",
@@ -42,7 +42,7 @@ export function Notice({ tone = "info", children }: { tone?: "info" | "success" 
 export function EmptyState({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
     <div className="rounded-md border border-dashed border-cream-deep px-6 py-12 text-center">
-      <p className="font-display text-2xl text-burgundy">{title}</p>
+      <p className="font-display text-2xl text-brand">{title}</p>
       {children && <div className="mt-2 text-sm text-muted">{children}</div>}
     </div>
   );

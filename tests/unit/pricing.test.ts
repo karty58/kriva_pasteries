@@ -1,11 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { priceCart, PricingError, type CartRequestLine } from "@/lib/pricing";
-import { DEFAULT_SETTINGS, DEMO_PRODUCTS } from "@/lib/demo-data";
+import { DEFAULT_SETTINGS } from "@/lib/demo-data";
+import { FIXTURE_PRODUCTS as DEMO_PRODUCTS } from "../fixtures/sample-catalogue";
 import type { Product } from "@/lib/types";
 
 const catalogue = new Map(DEMO_PRODUCTS.map((p) => [p.id, structuredClone(p)]));
 const bySlug = (slug: string) => [...catalogue.values()].find((p) => p.slug === slug)!;
-const settings = { ...DEFAULT_SETTINGS, delivery_enabled: true, delivery_fee_paise: 5000, free_delivery_above_paise: 300000 };
+const settings = { ...DEFAULT_SETTINGS, default_lead_time_hours: 24, delivery_enabled: true, delivery_fee_paise: 5000, free_delivery_above_paise: 300000 };
 
 const choc = bySlug("sample-dark-chocolate-truffle-cake"); // 500 g 99900 / 1 kg 189900; flavours Classic 0, Hazelnut +15000
 const opera = bySlug("sample-classic-opera-pastry"); // Single 18900, Box of 4 69900, no flavours

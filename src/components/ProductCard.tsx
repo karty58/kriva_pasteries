@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatINR } from "@/lib/money";
 import { minPrice } from "@/lib/catalogue-utils";
-import type { Product } from "@/lib/types";
+import { DIETARY_LABELS, type Product } from "@/lib/types";
 
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const img = product.images[0];
@@ -32,7 +32,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
       </div>
       <div className="mt-4 flex flex-1 flex-col gap-1">
         <h3 className="font-display text-xl leading-snug">
-          <Link href={`/product/${product.slug}`} className="after:absolute after:inset-0 hover:text-burgundy">
+          <Link href={`/product/${product.slug}`} className="after:absolute after:inset-0 hover:text-brand">
             {product.name}
           </Link>
         </h3>
@@ -40,7 +40,14 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           {from ? "From " : ""}
           <span className="font-medium text-charcoal">{formatINR(minPrice(product))}</span>
         </p>
-        {product.is_sample && <p className="text-xs text-muted">Sample listing</p>}
+        {product.is_sample && <p className="text-xs text-muted">Placeholder price</p>}
+        {product.dietary_tags.length > 0 && (
+          <ul className="mt-1 flex flex-wrap gap-1.5" aria-label="Dietary options">
+            {product.dietary_tags.map((t) => (
+              <li key={t} className="rounded-full border border-champagne/60 bg-champagne-soft/60 px-2 py-0.5 text-xs text-charcoal">{DIETARY_LABELS[t]}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </article>
   );

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Berry vanilla delice (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <path d="M250 560 Q250 520 400 518 Q550 520 550 560 L550 745 Q400 770 250 745 Z" fill="#F6E9F0"/>
+    <path d="M250 640 L550 640 L550 670 L250 670 Z" fill="#C2405A" opacity=".85"/>
+    <path d="M250 560 Q250 520 400 518 Q550 520 550 560 L550 745 Q400 770 250 745 Z" fill="url(#shade)"/>
+    <circle cx="350" cy="515" r="16" fill="#9C1F33"/><circle cx="390" cy="505" r="16" fill="#2E2A5A"/><circle cx="430" cy="512" r="16" fill="#9C1F33"/><circle cx="410" cy="524" r="16" fill="#9C1F33"/><circle cx="370" cy="526" r="16" fill="#2E2A5A"/>
+    <path d="M440 500 q16 -18 30 -4 q-14 14 -30 4z" fill="#4F7A3A"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

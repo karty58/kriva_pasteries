@@ -7,6 +7,7 @@ import { ContactLines, HoursList } from "@/components/BusinessInfo";
 import type { Product } from "@/lib/types";
 import { Cake3D } from "@/components/three/Cake3D";
 import { HERO_DESIGN } from "@/lib/cake3d/design";
+import { GALLERY_PHOTOS } from "@/lib/gallery";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +32,7 @@ function Section({
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
-            <h2 id={`${id}-title`} className="font-display text-4xl text-burgundy sm:text-5xl">
+            <h2 id={`${id}-title`} className="font-display text-4xl text-brand sm:text-5xl">
               {title}
             </h2>
             {intro && <p className="mt-3 text-muted">{intro}</p>}
@@ -46,23 +47,38 @@ function Section({
   );
 }
 
+type SectionDef = { id: string; title: string; intro?: string; href: string; products: Product[] };
+
+/** Render only sections that have products, alternating backgrounds so neighbours never match. */
+function sectionsWithTones(defs: SectionDef[], first: "ivory" | "cream" = "ivory") {
+  const tones = first === "ivory" ? (["ivory", "cream"] as const) : (["cream", "ivory"] as const);
+  return defs
+    .filter((d) => d.products.length > 0)
+    .map((d, i) => <Section key={d.id} {...d} tone={tones[i % 2]} />);
+}
+
 const inCat = (slugs: string[]) => (p: Product) => !!p.category && slugs.includes(p.category.slug);
-const CAKE_CATS = ["birthday-cakes", "celebration-cakes", "custom-cakes", "chocolate-cakes", "cheesecakes", "seasonal-specials"];
 
 export default async function HomePage() {
   const [products, settings] = await Promise.all([getAllProducts(), getSettings()]);
   const heroProduct = products.find((p) => p.is_featured && p.images[0]) ?? products.find((p) => p.images[0]);
   const heroImg = heroProduct?.images[0];
 
-  const bestsellers = products.filter((p) => p.is_bestseller && inCat(CAKE_CATS)(p));
+  const bestsellers = products.filter((p) => p.is_bestseller);
+  const signatureDesserts = products.filter((p) => p.is_signature && !inCat(["pastries"])(p));
   const signaturePastries = products.filter((p) => p.is_signature && inCat(["pastries"])(p));
+  const dietary = products.filter((p) => p.dietary_tags.length > 0);
   const birthday = products.filter(inCat(["birthday-cakes"]));
   const celebration = products.filter(inCat(["celebration-cakes"]));
   const custom = products.filter(inCat(["custom-cakes"]));
-  const minis = products.filter(inCat(["cupcakes", "brownies-and-desserts"]));
+  const minis = products.filter(inCat(["cupcakes"]));
   const seasonal = products.filter(inCat(["seasonal-specials"]));
   const recent = [...products].sort((a, b) => b.created_at.localeCompare(a.created_at));
-  const gallery = Array.from(new Map(products.flatMap((p) => p.images.slice(0, 1).map((i) => [i.url, { img: i, p }]))).values()).slice(0, 8);
+  // Real photos only (illustrations stay on product cards)
+  const productPhotos = products.flatMap((p) =>
+    p.images.filter((i) => !i.url.endsWith(".svg")).slice(0, 1).map((i) => ({ url: i.url, alt: i.alt_text ?? p.name, href: `/product/${p.slug}` as string | null })),
+  );
+  const gallery = [...productPhotos, ...GALLERY_PHOTOS.map((g) => ({ ...g, href: null }))].slice(0, 8);
 
   return (
     <>
@@ -71,7 +87,7 @@ export default async function HomePage() {
       )}
 
       {/* Hero */}
-      <section className="on-dark relative overflow-hidden bg-burgundy text-ivory">
+      <section className="on-dark relative overflow-hidden bg-brand text-ivory">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 md:grid-cols-[1.15fr_1fr] lg:px-8 lg:pb-24 lg:pt-20">
           <div>
             <h1 className="font-display text-[clamp(3rem,8vw,6.25rem)] leading-[0.98]">A Little Art in Every Bite.</h1>
@@ -117,18 +133,22 @@ export default async function HomePage() {
         </div>
       )}
 
-      <Section id="bestsellers" title="Bestselling cakes" href="/collection?sort=featured" products={bestsellers} />
-      <Section id="signature-pastries" title="Signature pastries" href="/collection?category=pastries" products={signaturePastries} tone="cream" />
-      <Section id="birthday" title="Birthday cakes" intro="Choose a size and flavour, and add a message to the cake." href="/collection?category=birthday-cakes" products={birthday} />
-      <Section id="celebration" title="Celebration cakes" intro="For anniversaries, engagements and milestones." href="/collection?category=celebration-cakes" products={celebration} tone="cream" />
+      {sectionsWithTones([
+        { id: "bestsellers", title: "Bestsellers", href: "/collection?sort=featured", products: bestsellers },
+        { id: "signature", title: "Signature desserts", intro: "Entremets, cheesecake, tiramisu, mousse and medovik.", href: "/collection?sort=featured", products: signatureDesserts },
+        { id: "signature-pastries", title: "Signature pastries", href: "/collection?category=pastries", products: signaturePastries },
+        { id: "eggless", title: "Eggless and sugar-free", intro: "Eggless versions and sugar-free dark chocolate choices.", href: "/collection?diet=eggless", products: dietary },
+        { id: "birthday", title: "Birthday cakes", href: "/collection?category=birthday-cakes", products: birthday },
+        { id: "celebration", title: "Celebration cakes", href: "/collection?category=celebration-cakes", products: celebration },
+      ])}
 
       {/* Custom cakes feature */}
       <section aria-labelledby="custom-title" className="bg-ivory">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:px-8 lg:py-24">
           <div>
-            <h2 id="custom-title" className="font-display text-4xl text-burgundy sm:text-5xl">Custom-designed cakes</h2>
+            <h2 id="custom-title" className="font-display text-4xl text-brand sm:text-5xl">Custom glazed cakes</h2>
             <p className="mt-4 max-w-md text-muted">
-              Bring an idea, a colour, a theme or a photo. We design the cake with you and confirm the price and date before you pay.
+              Glazed entremets and mini cakes in the colours and design you choose. Please order at least 1 day in advance — we confirm the design and price before you pay.
             </p>
             <ol className="mt-8 space-y-5">
               {[
@@ -137,7 +157,7 @@ export default async function HomePage() {
                 ["Pay and schedule", "Pay securely once confirmed, then pick up or receive your cake on the agreed date."],
               ].map(([t, d], i) => (
                 <li key={t} className="grid grid-cols-[2.25rem_1fr] gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-full border border-burgundy font-display text-burgundy">{i + 1}</span>
+                  <span className="grid h-9 w-9 place-items-center rounded-full border border-brand font-display text-brand">{i + 1}</span>
                   <div>
                     <p className="font-medium">{t}</p>
                     <p className="text-[0.95rem] text-muted">{d}</p>
@@ -145,18 +165,20 @@ export default async function HomePage() {
                 </li>
               ))}
             </ol>
-            <Link href="/custom-cakes" className="btn btn-primary mt-9">Start a custom cake</Link>
+            <Link href="/custom-cakes" className="btn btn-primary mt-9">Sketch your cake in 3D</Link>
           </div>
           <div>{custom.length > 0 && <ProductGrid products={custom.slice(0, 2)} />}</div>
         </div>
       </section>
 
-      <Section id="minis" title="Cupcakes and mini desserts" href="/collection?category=cupcakes" products={minis} tone="cream" />
-      <Section id="seasonal" title="Seasonal specials" href="/collection?category=seasonal-specials" products={seasonal} />
-      <Section id="recent" title="Recently added" href="/collection?sort=newest" products={recent} tone="cream" />
+      {sectionsWithTones([
+        { id: "minis", title: "Cupcakes and mini desserts", href: "/collection?category=cupcakes", products: minis },
+        { id: "seasonal", title: "Seasonal specials", href: "/collection?category=seasonal-specials", products: seasonal },
+        { id: "recent", title: "Recently added", href: "/collection?sort=newest", products: recent },
+      ], "cream")}
 
       {/* Our story */}
-      <section id="our-story" aria-labelledby="story-title" className="on-dark bg-burgundy-deep text-ivory">
+      <section id="our-story" aria-labelledby="story-title" className="on-dark bg-brand-deep text-ivory">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-[1fr_1.4fr] lg:px-8 lg:py-28">
           <h2 id="story-title" className="font-display text-5xl sm:text-6xl">Our story</h2>
           <div className="prose-kriva max-w-[62ch] text-lg leading-relaxed text-ivory/85">
@@ -172,11 +194,11 @@ export default async function HomePage() {
       {/* Why KRIVA — only describes things the site actually offers */}
       <section aria-labelledby="why-title">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-          <h2 id="why-title" className="font-display text-4xl text-burgundy sm:text-5xl">Why choose KRIVA</h2>
+          <h2 id="why-title" className="font-display text-4xl text-brand sm:text-5xl">Why KRIVA</h2>
           <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["Made for your occasion", "Choose sizes and flavours, add a cake message and share special requests."],
-              ["Custom designs", "Work with us on a cake designed around your theme."],
+              ["French and European style", "Entremets, opera, éclairs, tarts and medovik made in the patisserie tradition."],
+              ["Eggless and sugar-free", "Eggless versions of favourites like tiramisu and banoffee, plus sugar-free dark chocolate."],
               [
                 settings.delivery_enabled ? "Pickup or delivery" : "Easy pickup",
                 settings.delivery_enabled
@@ -200,15 +222,18 @@ export default async function HomePage() {
       {gallery.length > 0 && (
         <section aria-labelledby="gallery-title" className="bg-cream">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-            <h2 id="gallery-title" className="font-display text-4xl text-burgundy sm:text-5xl">From our kitchen</h2>
+            <h2 id="gallery-title" className="font-display text-4xl text-brand sm:text-5xl">From our kitchen</h2>
             <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {gallery.map(({ img, p }, i) => (
-                <li key={img.url} className={i % 5 === 0 ? "sm:row-span-2" : ""}>
-                  <Link href={`/product/${p.slug}`} className="relative block h-full min-h-40 overflow-hidden rounded-md bg-cream-deep">
-                    <Image src={img.url} alt={img.alt_text ?? p.name} fill sizes="(min-width: 640px) 25vw, 50vw" className="object-cover" loading="lazy" unoptimized={img.url.endsWith(".svg")} />
-                  </Link>
-                </li>
-              ))}
+              {gallery.map((g) => {
+                const img = (
+                  <Image src={g.url} alt={g.alt} fill sizes="(min-width: 640px) 25vw, 50vw" className="object-cover" loading="lazy" />
+                );
+                return (
+                  <li key={g.url} className="relative aspect-[4/5] overflow-hidden rounded-md bg-cream-deep">
+                    {g.href ? <Link href={g.href} className="block h-full">{img}</Link> : img}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </section>
@@ -218,12 +243,19 @@ export default async function HomePage() {
       {settings.testimonials.length > 0 && (
         <section aria-labelledby="reviews-title">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-            <h2 id="reviews-title" className="font-display text-4xl text-burgundy sm:text-5xl">Kind words</h2>
-            <ul className="mt-10 grid gap-10 md:grid-cols-3">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 id="reviews-title" className="font-display text-4xl text-brand sm:text-5xl">What guests say</h2>
+              {settings.maps_url && (
+                <a href={settings.maps_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">
+                  Read all reviews on Google
+                </a>
+              )}
+            </div>
+            <ul className="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
               {settings.testimonials.slice(0, 6).map((t, i) => (
-                <li key={i}>
-                  <blockquote className="font-display text-2xl leading-snug">“{t.quote}”</blockquote>
-                  <p className="mt-3 text-muted">{t.name}</p>
+                <li key={i} className="border-t border-champagne pt-6">
+                  <blockquote className="font-display text-xl leading-snug">“{t.quote}”</blockquote>
+                  <p className="mt-4 text-sm text-muted">{t.name} · Google review</p>
                 </li>
               ))}
             </ul>
@@ -235,7 +267,7 @@ export default async function HomePage() {
       <section aria-labelledby="visit-title" className="border-t border-cream-deep">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 lg:py-20">
           <div>
-            <h2 id="visit-title" className="font-display text-4xl text-burgundy">Visit us</h2>
+            <h2 id="visit-title" className="font-display text-4xl text-brand">Visit us</h2>
             <p className="mt-3 text-muted">{settings.city}, {settings.region}</p>
             {settings.instagram_url && (
               <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm mt-6">

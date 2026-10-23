@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Dark chocolate mousse (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <path d="M285 470 L515 470 L495 760 L305 760 Z" fill="#FFFFFF" opacity=".55" stroke="#E2D3BE" stroke-width="4"/>
+    <path d="M292 560 L508 560 L496 750 L304 750 Z" fill="#5B3426"/>
+    <path d="M296 520 L504 520 L508 560 L292 560 Z" fill="#7A4A36"/>
+    <ellipse cx="400" cy="505" rx="80" ry="26" fill="#3B1F16"/>
+    <path d="M360 495 q40 -40 80 0" stroke="#D2AD62" stroke-width="6" fill="none"/>
+    <rect x="300" y="480" width="26" height="270" fill="#fff" opacity=".35"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

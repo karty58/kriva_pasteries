@@ -6,8 +6,8 @@ import { DEFAULT_DESIGN, DRIPS, FROSTINGS, TOPPINGS, describeDesign, designFromF
 /** Shared look for option pills: styling follows :checked so it also works without JS state. */
 const pill =
   "inline-flex cursor-pointer items-center gap-2 rounded-full border border-cream-deep bg-ivory px-4 py-2 text-sm " +
-  "has-[:checked]:border-burgundy has-[:checked]:bg-burgundy has-[:checked]:text-ivory " +
-  "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-burgundy";
+  "has-[:checked]:border-brand has-[:checked]:bg-brand has-[:checked]:text-ivory " +
+  "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand";
 
 /**
  * "Design your cake in 3D". The form is uncontrolled and is read with
@@ -48,7 +48,7 @@ export function CakeDesigner() {
         </fieldset>
 
         <fieldset>
-          <legend className="label">Frosting</legend>
+          <legend className="label">Colour</legend>
           <div className="flex flex-wrap gap-2">
             {FROSTINGS.map((f) => (
               <label key={f.value} className={pill}>
@@ -61,7 +61,7 @@ export function CakeDesigner() {
         </fieldset>
 
         <fieldset>
-          <legend className="label">Drip</legend>
+          <legend className="label">Finish</legend>
           <div className="flex flex-wrap gap-2">
             {DRIPS.map((d) => (
               <label key={d.value} className={pill}>

@@ -22,7 +22,7 @@ export function ImageUploader({ productId }: { productId: string }) {
           type="file"
           multiple
           accept={TYPES.join(",")}
-          className="block text-sm file:mr-3 file:rounded-full file:border-0 file:bg-burgundy file:px-4 file:py-2 file:text-ivory"
+          className="block text-sm file:mr-3 file:rounded-full file:border-0 file:bg-brand file:px-4 file:py-2 file:text-ivory"
           onChange={(e) => {
             const files = Array.from(e.target.files ?? []);
             const bad = files.find((f) => !TYPES.includes(f.type) || f.size > MAX);

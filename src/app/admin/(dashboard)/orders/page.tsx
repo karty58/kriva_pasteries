@@ -61,7 +61,7 @@ export default async function OrdersPage({ searchParams }: PageProps<"/admin/ord
           {STATUS_FILTERS.map(([v, l]) => (
             <li key={v}>
               <Link href={href(v)} aria-current={status === v ? "page" : undefined}
-                className={`inline-block rounded-full border px-3 py-1.5 text-sm ${status === v ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep bg-white"}`}>
+                className={`inline-block rounded-full border px-3 py-1.5 text-sm ${status === v ? "border-brand bg-brand text-ivory" : "border-cream-deep bg-white"}`}>
                 {l}
               </Link>
             </li>
@@ -87,7 +87,7 @@ export default async function OrdersPage({ searchParams }: PageProps<"/admin/ord
               {orders.map((o) => (
                 <tr key={o.id} className="border-t border-cream-deep">
                   <td className="px-4 py-2">
-                    <Link href={`/admin/orders/${o.id}`} className="font-medium text-burgundy underline">{o.reference}</Link>
+                    <Link href={`/admin/orders/${o.id}`} className="font-medium text-brand underline">{o.reference}</Link>
                     <span className="block text-xs text-muted">{formatIST(o.created_at)}</span>
                   </td>
                   <td className="px-4 py-2">{o.customer_name}<span className="block text-xs text-muted">{o.customer_phone}</span></td>

@@ -97,6 +97,7 @@ export async function saveProduct(_prev: ActionState, formData: FormData): Promi
     is_featured: bool(formData, "is_featured"),
     is_bestseller: bool(formData, "is_bestseller"),
     is_signature: bool(formData, "is_signature"),
+    dietary_tags: (["eggless", "sugar-free"] as const).filter((t) => bool(formData, `diet_${t}`)),
     is_sample: false, // once the owner saves it, it's their real listing
   };
 

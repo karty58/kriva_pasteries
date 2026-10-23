@@ -4,16 +4,17 @@
    KRIVA design tokens
    ------------------------------------------------------------------ */
 @theme {
-  --color-burgundy: #6b1f2e;
-  --color-burgundy-deep: #4a1420;
-  --color-burgundy-soft: #8a3a4a;
-  --color-ivory: #fbf7f0;
-  --color-cream: #f3eadb;
-  --color-cream-deep: #e9dcc6;
-  --color-champagne: #c4a46b;
-  --color-champagne-soft: #e4d3ae;
-  --color-charcoal: #2a2526;
-  --color-muted: #6a5f5c;
+  /* KRIVA Patisserie — sage, cream and warm gold, taken from the shop front */
+  --color-brand: #45594b;
+  --color-brand-deep: #2e3c32;
+  --color-brand-soft: #6f8473;
+  --color-ivory: #faf8f2;
+  --color-cream: #eef0e5;
+  --color-cream-deep: #dce2d2;
+  --color-champagne: #b8944a;
+  --color-champagne-soft: #ebdfbd;
+  --color-charcoal: #232b25;
+  --color-muted: #5b655d;
   --color-success: #2f6b45;
   --color-danger: #a12a2a;
 
@@ -57,7 +58,7 @@ body {
 
 /* Visible keyboard focus everywhere */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-burgundy);
+  outline: 2px solid var(--color-brand);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -88,23 +89,23 @@ body {
   cursor: not-allowed;
 }
 .btn-primary {
-  background: var(--color-burgundy);
+  background: var(--color-brand);
   color: var(--color-ivory);
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--color-burgundy-deep);
+  background: var(--color-brand-deep);
 }
 .btn-outline {
-  border: 1px solid var(--color-burgundy);
-  color: var(--color-burgundy);
+  border: 1px solid var(--color-brand);
+  color: var(--color-brand);
 }
 .btn-outline:hover:not(:disabled) {
-  background: var(--color-burgundy);
+  background: var(--color-brand);
   color: var(--color-ivory);
 }
 .btn-light {
   background: var(--color-ivory);
-  color: var(--color-burgundy-deep);
+  color: var(--color-brand-deep);
 }
 .btn-light:hover {
   background: var(--color-cream);
@@ -140,7 +141,7 @@ body {
   color: var(--color-charcoal);
 }
 .field:focus {
-  outline: 2px solid var(--color-burgundy);
+  outline: 2px solid var(--color-brand);
   outline-offset: 0;
   border-color: transparent;
 }

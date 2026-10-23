@@ -33,7 +33,7 @@ export default async function EditProductPage({ params, searchParams }: PageProp
         {sp.created && <Notice tone="success">Product created. Add photos below.</Notice>}
         {sp.error === "confirm" && <Notice tone="error">Type DELETE to confirm deletion.</Notice>}
         {sp.error === "delete" && <Notice tone="error">Couldn&apos;t delete this product. Try hiding it instead.</Notice>}
-        {product.is_sample && <Notice>This is a sample listing. Saving it marks it as a real product — check every price and detail first.</Notice>}
+        {product.is_sample && <Notice>This item still has a placeholder price and illustration. Saving marks the price as confirmed — enter KRIVA&apos;s real price and upload a photo first.</Notice>}
         {!product.is_active && <Notice>This product is hidden from the website.</Notice>}
       </div>
 
@@ -46,7 +46,7 @@ export default async function EditProductPage({ params, searchParams }: PageProp
               <li key={img.id} className="w-32">
                 <div className="relative aspect-[4/5] overflow-hidden rounded bg-cream">
                   <Image src={img.url} alt={img.alt_text ?? ""} fill sizes="128px" className="object-cover" unoptimized={img.url.endsWith(".svg")} />
-                  {i === 0 && <span className="absolute left-1 top-1 rounded bg-burgundy px-1.5 text-xs text-ivory">Main</span>}
+                  {i === 0 && <span className="absolute left-1 top-1 rounded bg-brand px-1.5 text-xs text-ivory">Main</span>}
                 </div>
                 <div className="mt-2 flex gap-1">
                   <form action={moveProductImage}><input type="hidden" name="image_id" value={img.id} /><input type="hidden" name="dir" value="up" />

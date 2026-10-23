@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { createHmac, randomUUID } from "node:crypto";
 import { FakeDb } from "./fake-supabase";
-import { DEMO_PRODUCTS } from "@/lib/demo-data";
+import { FIXTURE_PRODUCTS as DEMO_PRODUCTS } from "../fixtures/sample-catalogue";
 import { istParts } from "@/lib/schedule";
 
 // --- Environment (TEST values only; never live credentials) -------------

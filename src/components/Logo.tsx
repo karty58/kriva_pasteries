@@ -24,7 +24,7 @@ export function Logo({ height = 44, tone = "dark" }: { height?: number; tone?: "
     return (
       <span
         className="font-display tracking-[0.18em]"
-        style={{ fontSize: height * 0.55, lineHeight: `${height}px`, color: tone === "light" ? "var(--color-ivory)" : "var(--color-burgundy)" }}
+        style={{ fontSize: height * 0.55, lineHeight: `${height}px`, color: tone === "light" ? "var(--color-ivory)" : "var(--color-brand)" }}
         title="Logo placeholder — add public/brand/kriva-logo.png"
       >
         KRIVA

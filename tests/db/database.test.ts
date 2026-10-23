@@ -23,7 +23,7 @@ function ref() {
 }
 
 async function createOrder(opts: { qty?: number; tamperSubtotal?: boolean; slug?: string; method?: "online" | "offline" } = {}) {
-  const v = await firstVariant(opts.slug ?? "sample-classic-opera-pastry");
+  const v = await firstVariant(opts.slug ?? "classic-opera");
   const qty = opts.qty ?? 2;
   const line = v.price_paise * qty;
   const order = {
@@ -56,11 +56,23 @@ beforeAll(async () => {
 });
 
 describe("migrations & seed", () => {
-  it("creates initial categories and sample products marked as samples", async () => {
+  it("creates initial categories, real shop details, and menu items flagged as placeholder-priced", async () => {
     const c = await db.query<{ n: number }>(`select count(*)::int as n from categories`);
     expect(c.rows[0].n).toBe(9);
     const p = await db.query<{ n: number }>(`select count(*)::int as n from products where not is_sample`);
     expect(p.rows[0].n).toBe(0);
+    const st = await db.query<{ phone: string; hours: Record<string, unknown>; whatsapp: string | null }>(
+      `select phone, business_hours as hours, whatsapp_number as whatsapp from site_settings where id = 1`);
+    expect(st.rows[0].phone).toBe("+91 82705 70052");
+    expect(st.rows[0].hours.mon).toBeNull();
+    expect(st.rows[0].hours.tue).toEqual({ open: "14:00", close: "22:00" });
+    expect(st.rows[0].whatsapp).toBeNull();
+    const eggless = await db.query<{ n: number }>(`select count(*)::int as n from products where 'eggless' = any(dietary_tags)`);
+    expect(eggless.rows[0].n).toBe(3);
+  });
+
+  it("only allows known dietary tags", async () => {
+    await expect(db.exec(`update products set dietary_tags = '{gluten-free-ish}' where slug = 'tiramisu'`)).rejects.toThrow(/dietary_tags_valid/);
   });
 
   it("rejects invalid product data via constraints", async () => {
@@ -86,29 +98,29 @@ describe("create_order", () => {
   });
 
   it("reserves tracked stock and refuses to oversell", async () => {
-    await db.exec(`update products set stock_quantity = 3 where slug = 'sample-fudge-brownie-box'`);
-    await createOrder({ slug: "sample-fudge-brownie-box", qty: 2 });
-    const s = await db.query<{ q: number }>(`select stock_quantity as q from products where slug = 'sample-fudge-brownie-box'`);
+    await db.exec(`update products set stock_quantity = 3 where slug = 'chocolate-eclair'`);
+    await createOrder({ slug: "chocolate-eclair", qty: 2 });
+    const s = await db.query<{ q: number }>(`select stock_quantity as q from products where slug = 'chocolate-eclair'`);
     expect(s.rows[0].q).toBe(1);
-    await expect(createOrder({ slug: "sample-fudge-brownie-box", qty: 2 })).rejects.toThrow(/OUT_OF_STOCK/);
+    await expect(createOrder({ slug: "chocolate-eclair", qty: 2 })).rejects.toThrow(/OUT_OF_STOCK/);
   });
 
   it("returns stock when an order is cancelled", async () => {
-    await db.exec(`update products set stock_quantity = 5 where slug = 'sample-fudge-brownie-box'`);
-    const id = await createOrder({ slug: "sample-fudge-brownie-box", qty: 2 });
+    await db.exec(`update products set stock_quantity = 5 where slug = 'chocolate-eclair'`);
+    const id = await createOrder({ slug: "chocolate-eclair", qty: 2 });
     await db.query(`update orders set status = 'cancelled' where id = $1`, [id]);
-    const s = await db.query<{ q: number }>(`select stock_quantity as q from products where slug = 'sample-fudge-brownie-box'`);
+    const s = await db.query<{ q: number }>(`select stock_quantity as q from products where slug = 'chocolate-eclair'`);
     expect(s.rows[0].q).toBe(5);
   });
 
   it("enforces unique idempotency keys (duplicate submission)", async () => {
     const key = randomUUID();
     const base = { access_token_hash: "h", idempotency_key: key, customer_name: "AB", customer_phone: "9876543210",
-      fulfilment_method: "pickup", requested_for: new Date().toISOString(), subtotal_paise: 18900,
-      delivery_fee_paise: 0, total_paise: 18900, payment_method: "offline" };
-    const v = await firstVariant("sample-classic-opera-pastry");
+      fulfilment_method: "pickup", requested_for: new Date().toISOString(), subtotal_paise: 32000,
+      delivery_fee_paise: 0, total_paise: 32000, payment_method: "offline" };
+    const v = await firstVariant("classic-opera");
     const items = JSON.stringify([{ product_id: v.product_id, variant_id: v.variant_id, product_name: "x",
-      variant_label: "y", unit_price_paise: 18900, quantity: 1, line_total_paise: 18900 }]);
+      variant_label: "y", unit_price_paise: 32000, quantity: 1, line_total_paise: 32000 }]);
     await db.query(`select create_order($1::jsonb, $2::jsonb)`, [JSON.stringify({ ...base, reference: ref() }), items]);
     await expect(
       db.query(`select create_order($1::jsonb, $2::jsonb)`, [JSON.stringify({ ...base, reference: ref() }), items]),
@@ -146,12 +158,12 @@ describe("row level security", () => {
   });
 
   it("hides deactivated products from the public", async () => {
-    await db.exec(`update products set is_active = false where slug = 'sample-lemon-tart'`);
+    await db.exec(`update products set is_active = false where slug = 'coffee-tart'`);
     await asRole(db, "anon", null, async () => {
-      const r = await db.query(`select 1 from products where slug = 'sample-lemon-tart'`);
+      const r = await db.query(`select 1 from products where slug = 'coffee-tart'`);
       expect(r.rows.length).toBe(0);
     });
-    await db.exec(`update products set is_active = true where slug = 'sample-lemon-tart'`);
+    await db.exec(`update products set is_active = true where slug = 'coffee-tart'`);
   });
 
   it("public visitors cannot modify products or call create_order", async () => {
@@ -176,7 +188,7 @@ describe("row level security", () => {
 
   it("owners can manage products and read orders", async () => {
     await asRole(db, "authenticated", ADMIN, async () => {
-      const r = await db.query(`update products set is_featured = true where slug = 'sample-lemon-tart' returning id`);
+      const r = await db.query(`update products set is_featured = true where slug = 'coffee-tart' returning id`);
       expect(r.rows.length).toBe(1);
       const o = await db.query<{ n: number }>(`select count(*)::int as n from orders`);
       expect(o.rows[0].n).toBeGreaterThan(0);

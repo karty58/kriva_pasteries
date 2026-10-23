@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Classic opera (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <rect x="230" y="520" width="340" height="230" rx="6" fill="#3B2219"/>
+    <rect x="230" y="575" width="340" height="14" fill="#B98A5E"/><rect x="230" y="625" width="340" height="14" fill="#B98A5E"/><rect x="230" y="675" width="340" height="14" fill="#B98A5E"/><rect x="230" y="718" width="340" height="14" fill="#B98A5E"/>
+    <rect x="230" y="508" width="340" height="26" rx="4" fill="#24130E"/>
+    <path d="M330 492 q70 -40 140 0" stroke="#D2AD62" stroke-width="6" fill="none"/>
+    <path d="M370 470 l14 -10 l12 8 l-8 14 z" fill="#D2AD62"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

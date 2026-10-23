@@ -63,7 +63,7 @@ export function IntroOverlay({ videoUrl, posterUrl }: { videoUrl: string | null;
       role="dialog"
       aria-modal="true"
       aria-label="Welcome to KRIVA"
-      className={`fixed inset-0 z-[60] grid place-items-center overflow-hidden bg-burgundy-deep ${state === "leaving" ? "intro-leaving" : ""}`}
+      className={`fixed inset-0 z-[60] grid place-items-center overflow-hidden bg-brand-deep ${state === "leaving" ? "intro-leaving" : ""}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={posterUrl} alt="" className="absolute inset-0 h-full w-full object-cover" />
@@ -81,7 +81,7 @@ export function IntroOverlay({ videoUrl, posterUrl }: { videoUrl: string | null;
           aria-hidden="true"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-burgundy-deep/30 via-transparent to-burgundy-deep/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-deep/30 via-transparent to-brand-deep/70" />
       <div className="intro-mark relative flex flex-col items-center gap-5 px-6 text-center">
         <div className="rounded-full bg-ivory/95 px-8 py-5">
           <Logo height={72} />

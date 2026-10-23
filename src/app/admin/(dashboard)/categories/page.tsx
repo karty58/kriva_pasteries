@@ -14,7 +14,7 @@ function Fields({ c }: { c?: Category }) {
       <div><label htmlFor={`n-${p}`} className="label">Name</label><input id={`n-${p}`} name="name" required maxLength={80} defaultValue={c?.name} className="field" /></div>
       <div><label htmlFor={`s-${p}`} className="label">Slug</label><input id={`s-${p}`} name="slug" maxLength={120} defaultValue={c?.slug} placeholder="auto from name" className="field" /></div>
       <div><label htmlFor={`d-${p}`} className="label">Description</label><input id={`d-${p}`} name="description" maxLength={500} defaultValue={c?.description ?? ""} className="field" /></div>
-      <label className="flex items-center gap-2 pb-3 text-sm"><input type="checkbox" name="is_active" defaultChecked={c ? c.is_active : true} className="accent-burgundy" /> Visible</label>
+      <label className="flex items-center gap-2 pb-3 text-sm"><input type="checkbox" name="is_active" defaultChecked={c ? c.is_active : true} className="accent-brand" /> Visible</label>
     </div>
   );
 }
@@ -43,7 +43,7 @@ export default async function CategoriesPage() {
           </li>
         ))}
       </ul>
-      <section className="mt-10 rounded-md border border-burgundy/30 bg-white p-4" aria-labelledby="new-cat">
+      <section className="mt-10 rounded-md border border-brand/30 bg-white p-4" aria-labelledby="new-cat">
         <h2 id="new-cat" className="mb-3 font-display text-2xl">Add a category</h2>
         <ActionForm action={saveCategory} submitLabel="Add category"><Fields /></ActionForm>
       </section>

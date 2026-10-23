@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Custom mini cakes (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <defs><pattern id="mc0" width="420" height="300" patternUnits="userSpaceOnUse">
+  <rect width="420" height="300" fill="#7B2335"/>
+  <path d="M-20 60 C 80 10, 160 130, 260 70 S 400 30, 460 90" stroke="#F3E6D8" stroke-width="18" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 130 C 80 80, 160 190, 260 130 S 400 110, 460 150" stroke="#D2AD62" stroke-width="14" fill="none" stroke-linecap="round" opacity=".85"/>
+</pattern></defs>
+    <path d="M188 650 Q188 600 250 597 Q312 600 312 650 L312 760 Q250 778 188 760 Z" fill="url(#mc0)"/>
+    <path d="M188 650 Q188 600 250 597 Q312 600 312 650 L312 760 Q250 778 188 760 Z" fill="url(#shade)"/>
+    <circle cx="250" cy="590" r="10" fill="#D2AD62"/>
+    <defs><pattern id="mc1" width="420" height="300" patternUnits="userSpaceOnUse">
+  <rect width="420" height="300" fill="#EFC9CD"/>
+  <path d="M-20 60 C 80 10, 160 130, 260 70 S 400 30, 460 90" stroke="#FFFFFF" stroke-width="18" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 130 C 80 80, 160 190, 260 130 S 400 110, 460 150" stroke="#D2AD62" stroke-width="14" fill="none" stroke-linecap="round" opacity=".85"/>
+</pattern></defs>
+    <path d="M338 650 Q338 600 400 597 Q462 600 462 650 L462 760 Q400 778 338 760 Z" fill="url(#mc1)"/>
+    <path d="M338 650 Q338 600 400 597 Q462 600 462 650 L462 760 Q400 778 338 760 Z" fill="url(#shade)"/>
+    <circle cx="400" cy="590" r="10" fill="#9C1F33"/>
+    <defs><pattern id="mc2" width="420" height="300" patternUnits="userSpaceOnUse">
+  <rect width="420" height="300" fill="#CFDCAE"/>
+  <path d="M-20 60 C 80 10, 160 130, 260 70 S 400 30, 460 90" stroke="#FFF8EE" stroke-width="18" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 130 C 80 80, 160 190, 260 130 S 400 110, 460 150" stroke="#D2AD62" stroke-width="14" fill="none" stroke-linecap="round" opacity=".85"/>
+</pattern></defs>
+    <path d="M488 650 Q488 600 550 597 Q612 600 612 650 L612 760 Q550 778 488 760 Z" fill="url(#mc2)"/>
+    <path d="M488 650 Q488 600 550 597 Q612 600 612 650 L612 760 Q550 778 488 760 Z" fill="url(#shade)"/>
+    <circle cx="550" cy="590" r="10" fill="#9C1F33"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

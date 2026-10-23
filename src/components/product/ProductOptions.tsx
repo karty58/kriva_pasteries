@@ -84,7 +84,7 @@ export function ProductOptions({ product, whatsappNumber }: { product: Product; 
           <legend className="label">Size</legend>
           <div className="flex flex-wrap gap-2">
             {variants.map((v) => (
-              <label key={v.id} className={`cursor-pointer rounded-full border px-4 py-2 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-burgundy ${variantId === v.id ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep hover:border-burgundy"}`}>
+              <label key={v.id} className={`cursor-pointer rounded-full border px-4 py-2 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${variantId === v.id ? "border-brand bg-brand text-ivory" : "border-cream-deep hover:border-brand"}`}>
                 <input type="radio" name={`${uid}-size`} value={v.id} checked={variantId === v.id} onChange={() => setVariantId(v.id)} className="sr-only" />
                 {v.label} · {formatINR(v.price_paise)}
               </label>
@@ -98,7 +98,7 @@ export function ProductOptions({ product, whatsappNumber }: { product: Product; 
           <legend className="label">Flavour</legend>
           <div className="flex flex-wrap gap-2">
             {flavours.map((f) => (
-              <label key={f.id} className={`cursor-pointer rounded-full border px-4 py-2 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-burgundy ${flavourId === f.id ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep hover:border-burgundy"}`}>
+              <label key={f.id} className={`cursor-pointer rounded-full border px-4 py-2 text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${flavourId === f.id ? "border-brand bg-brand text-ivory" : "border-cream-deep hover:border-brand"}`}>
                 <input type="radio" name={`${uid}-flavour`} value={f.id} checked={flavourId === f.id} onChange={() => setFlavourId(f.id)} className="sr-only" />
                 {f.name}
                 {f.extra_price_paise > 0 && ` (+${formatINR(f.extra_price_paise)})`}
@@ -144,7 +144,7 @@ export function ProductOptions({ product, whatsappNumber }: { product: Product; 
       {added && (
         <p role="status" className="flex flex-wrap items-center gap-3 rounded-md bg-cream px-4 py-3 text-sm">
           Added to your cart.
-          <Link href="/cart" className="font-medium text-burgundy underline underline-offset-4">View cart</Link>
+          <Link href="/cart" className="font-medium text-brand underline underline-offset-4">View cart</Link>
           <Link href="/collection" className="underline underline-offset-4">Continue shopping</Link>
         </p>
       )}

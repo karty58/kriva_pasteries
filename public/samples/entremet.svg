@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Marble mirror glazed entremet (illustration)">
+  <defs>
+    <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#EEF0E5"/>
+  <ellipse cx="400" cy="780" rx="300" ry="44" fill="#DCE2D2"/><ellipse cx="400" cy="772" rx="300" ry="40" fill="#E6EADF"/>
+  
+    <defs><pattern id="m1" width="420" height="300" patternUnits="userSpaceOnUse">
+  <rect width="420" height="300" fill="#6B1F2E"/>
+  <path d="M-20 60 C 80 10, 160 130, 260 70 S 400 30, 460 90" stroke="#F3E6D8" stroke-width="18" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 130 C 80 80, 160 190, 260 130 S 400 110, 460 150" stroke="#B5475A" stroke-width="14" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 200 C 80 150, 160 250, 260 190 S 400 190, 460 210" stroke="#2E0B13" stroke-width="10" fill="none" stroke-linecap="round" opacity=".85"/><path d="M-20 270 C 80 220, 160 310, 260 250 S 400 270, 460 270" stroke="#D2AD62" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>
+</pattern></defs>
+    <path d="M190 560 Q190 470 400 465 Q610 470 610 560 L610 745 Q400 790 190 745 Z" fill="url(#m1)"/>
+    <path d="M190 560 Q190 470 400 465 Q610 470 610 560 L610 745 Q400 790 190 745 Z" fill="url(#shade)"/>
+    <path d="M230 520 Q300 480 400 478" stroke="#fff" stroke-opacity=".5" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <rect x="200" y="560" width="70" height="180" fill="url(#gloss)" opacity=".6"/>
+    <path d="M340 470 l18 -14 l14 10 l-10 18 z" fill="#D2AD62"/><path d="M380 462 l18 -14 l14 10 l-10 18 z" fill="#D2AD62"/><path d="M430 466 l18 -14 l14 10 l-10 18 z" fill="#D2AD62"/>
+    <circle cx="470" cy="458" r="14" fill="#9C1F33"/>
+  <text x="400" y="930" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#5B655D" letter-spacing="1">Illustration — photo to come</text>
+</svg>

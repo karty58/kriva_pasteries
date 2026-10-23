@@ -9,6 +9,8 @@ describe("3D cake designer options", () => {
       .toBe("1 tier with pistachio frosting and gold leaf");
     expect(describeDesign({ tiers: 2, frosting: "ivory", drip: "none", topping: "none" }))
       .toBe("2 tiers with ivory frosting");
+    expect(describeDesign({ tiers: 1, frosting: "burgundy", drip: "mirror", topping: "gold-leaf" }))
+      .toBe("1 tier in a burgundy marble mirror glaze, finished with gold leaf");
   });
 
   it("falls back to safe defaults for unknown or tampered values", () => {

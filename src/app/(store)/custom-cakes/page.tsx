@@ -16,7 +16,7 @@ export default async function CustomCakesPage() {
   const custom = products.filter((p) => p.category?.slug === "custom-cakes");
   return (
     <div>
-      <section className="on-dark bg-burgundy text-ivory">
+      <section className="on-dark bg-brand text-ivory">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <h1 className="max-w-3xl font-display text-[clamp(2.75rem,6vw,5rem)] leading-[1]">Custom cakes, designed with you</h1>
           <p className="mt-6 max-w-xl text-lg text-ivory/85">
@@ -27,8 +27,8 @@ export default async function CustomCakesPage() {
 
       <section aria-labelledby="design-title" className="border-b border-cream-deep">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 id="design-title" className="font-display text-4xl text-burgundy sm:text-5xl">Sketch your cake in 3D</h2>
-          <p className="mt-3 max-w-xl text-muted">Choose tiers, frosting, drip and topping, and turn the cake to see it from every side.</p>
+          <h2 id="design-title" className="font-display text-4xl text-brand sm:text-5xl">Sketch your cake in 3D</h2>
+          <p className="mt-3 max-w-xl text-muted">Choose tiers, colour, finish and topping — including our marble mirror glaze — and turn the cake to see it from every side.</p>
           <div className="mt-10">
             <CakeDesigner />
           </div>
@@ -38,7 +38,7 @@ export default async function CustomCakesPage() {
       <div className="mx-auto grid max-w-7xl gap-14 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_26rem] lg:px-8">
         <div className="space-y-10">
           <section aria-labelledby="how-title">
-            <h2 id="how-title" className="font-display text-4xl text-burgundy">What to tell us</h2>
+            <h2 id="how-title" className="font-display text-4xl text-brand">What to tell us</h2>
             <ul className="mt-6 grid gap-6 sm:grid-cols-2">
               {[
                 ["Occasion and date", "When you need it and whether you'll pick it up or need delivery."],
@@ -55,7 +55,7 @@ export default async function CustomCakesPage() {
           </section>
           {custom.length > 0 && (
             <section aria-labelledby="start-title">
-              <h2 id="start-title" className="mb-6 font-display text-4xl text-burgundy">Start from a base</h2>
+              <h2 id="start-title" className="mb-6 font-display text-4xl text-brand">Start from a base</h2>
               <ProductGrid products={custom} />
             </section>
           )}

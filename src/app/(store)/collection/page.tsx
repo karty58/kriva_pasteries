@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getCategories, queryProducts, type SortKey } from "@/lib/catalogue";
+import { getAllProducts, getCategories, queryProducts, type SortKey } from "@/lib/catalogue";
+import { DIETARY_LABELS, type DietaryTag } from "@/lib/types";
 import { ProductGrid } from "@/components/ProductCard";
 import { AutoSubmitSelect } from "@/components/AutoSubmitSelect";
 
@@ -29,13 +30,22 @@ export default async function CollectionPage({ searchParams }: PageProps<"/colle
   const category = typeof sp.category === "string" ? sp.category : undefined;
   const q = typeof sp.q === "string" ? sp.q.slice(0, 80) : undefined;
   const sort = (SORTS.find((s) => s.value === sp.sort)?.value ?? "featured") as SortKey;
+  const diet = (["eggless", "sugar-free"] as DietaryTag[]).find((d) => d === sp.diet);
 
-  const [categories, products] = await Promise.all([getCategories(), queryProducts({ category, q, sort })]);
-  const active = categories.find((c) => c.slug === category);
+  const [allCategories, products, everything] = await Promise.all([
+    getCategories(),
+    queryProducts({ category, q, sort, diet }),
+    getAllProducts(),
+  ]);
+  // Only show categories that currently have something in them
+  const categories = allCategories.filter((c) => c.slug === category || everything.some((p) => p.category?.slug === c.slug));
+  const diets = (["eggless", "sugar-free"] as DietaryTag[]).filter((d) => everything.some((p) => p.dietary_tags.includes(d)));
+  const active = allCategories.find((c) => c.slug === category);
 
-  const hrefFor = (slug?: string) => {
+  const hrefFor = (slug?: string, dietTag: DietaryTag | undefined = diet) => {
     const p = new URLSearchParams();
     if (slug) p.set("category", slug);
+    if (dietTag) p.set("diet", dietTag);
     if (q) p.set("q", q);
     if (sort !== "featured") p.set("sort", sort);
     const s = p.toString();
@@ -44,11 +54,12 @@ export default async function CollectionPage({ searchParams }: PageProps<"/colle
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <h1 className="font-display text-5xl text-burgundy sm:text-6xl">{active ? active.name : "Our collection"}</h1>
+      <h1 className="font-display text-5xl text-brand sm:text-6xl">{active ? active.name : diet ? DIETARY_LABELS[diet] : "Our collection"}</h1>
       {active?.description && <p className="mt-3 max-w-xl text-muted">{active.description}</p>}
 
       <form action="/collection" method="get" className="mt-10 flex flex-col gap-4 border-y border-cream-deep py-5 md:flex-row md:items-end">
         {category && <input type="hidden" name="category" value={category} />}
+        {diet && <input type="hidden" name="diet" value={diet} />}
         <div className="flex-1">
           <label htmlFor="q" className="label">Search by name</label>
           <div className="flex gap-2">
@@ -66,19 +77,31 @@ export default async function CollectionPage({ searchParams }: PageProps<"/colle
         <ul className="flex flex-wrap gap-2">
           <li>
             <Link href={hrefFor()} aria-current={!category ? "page" : undefined}
-              className={`inline-block rounded-full border px-4 py-2 text-sm ${!category ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep hover:border-burgundy"}`}>
+              className={`inline-block rounded-full border px-4 py-2 text-sm ${!category ? "border-brand bg-brand text-ivory" : "border-cream-deep hover:border-brand"}`}>
               All
             </Link>
           </li>
           {categories.map((c) => (
             <li key={c.id}>
               <Link href={hrefFor(c.slug)} aria-current={category === c.slug ? "page" : undefined}
-                className={`inline-block rounded-full border px-4 py-2 text-sm ${category === c.slug ? "border-burgundy bg-burgundy text-ivory" : "border-cream-deep hover:border-burgundy"}`}>
+                className={`inline-block rounded-full border px-4 py-2 text-sm ${category === c.slug ? "border-brand bg-brand text-ivory" : "border-cream-deep hover:border-brand"}`}>
                 {c.name}
               </Link>
             </li>
           ))}
         </ul>
+        {diets.length > 0 && (
+          <ul className="mt-3 flex flex-wrap gap-2" aria-label="Dietary options">
+            {diets.map((d) => (
+              <li key={d}>
+                <Link href={hrefFor(category, diet === d ? undefined : d)} aria-current={diet === d ? "true" : undefined}
+                  className={`inline-block rounded-full border px-4 py-2 text-sm ${diet === d ? "border-champagne bg-champagne-soft text-charcoal" : "border-champagne/60 text-charcoal hover:border-champagne"}`}>
+                  {DIETARY_LABELS[d]}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </nav>
 
       <div className="mt-10">
@@ -90,7 +113,7 @@ export default async function CollectionPage({ searchParams }: PageProps<"/colle
           <ProductGrid products={products} priorityCount={4} />
         ) : (
           <div className="rounded-md bg-cream px-6 py-14 text-center">
-            <p className="font-display text-3xl text-burgundy">Nothing matches that yet</p>
+            <p className="font-display text-3xl text-brand">Nothing matches that yet</p>
             <p className="mt-2 text-muted">Try a different word, or browse all cakes and pastries.</p>
             <Link href="/collection" className="btn btn-outline mt-6">Show everything</Link>
           </div>

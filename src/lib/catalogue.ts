@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { cache } from "react";
 import { isDemoMode, publicEnv } from "./env";
 import { DEFAULT_SETTINGS, DEMO_CATEGORIES, DEMO_PRODUCTS } from "./demo-data";
-import type { Category, Product, ProductImage, SiteSettings } from "./types";
+import type { Category, DietaryTag, Product, ProductImage, SiteSettings } from "./types";
 
 export const PRODUCT_SELECT =
   "*, category:categories(id,name,slug), variants:product_variants(*), flavours:product_flavours(*), images:product_images(*)";
@@ -25,6 +25,7 @@ export function normaliseProduct(row: any): Product {
   const bySort = <T extends { sort_order: number }>(a: T, b: T) => a.sort_order - b.sort_order;
   return {
     ...row,
+    dietary_tags: row.dietary_tags ?? [],
     variants: [...(row.variants ?? [])].sort(bySort),
     flavours: [...(row.flavours ?? [])].sort(bySort),
     images: [...(row.images ?? [])]
@@ -67,9 +68,10 @@ export { minPrice };
 
 export type SortKey = "featured" | "price-asc" | "price-desc" | "newest";
 
-export async function queryProducts(opts: { category?: string; q?: string; sort?: SortKey }) {
+export async function queryProducts(opts: { category?: string; q?: string; sort?: SortKey; diet?: DietaryTag }) {
   let list = await getAllProducts();
   if (opts.category) list = list.filter((p) => p.category?.slug === opts.category);
+  if (opts.diet) list = list.filter((p) => (p.dietary_tags ?? []).includes(opts.diet!));
   if (opts.q) {
     const q = opts.q.toLowerCase().trim();
     list = list.filter((p) => p.name.toLowerCase().includes(q));
