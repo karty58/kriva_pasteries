@@ -5,6 +5,8 @@ import { IntroOverlay } from "@/components/IntroOverlay";
 import { ProductGrid } from "@/components/ProductCard";
 import { ContactLines, HoursList } from "@/components/BusinessInfo";
 import type { Product } from "@/lib/types";
+import { Cake3D } from "@/components/three/Cake3D";
+import { HERO_DESIGN } from "@/lib/cake3d/design";
 
 export const dynamic = "force-dynamic";
 
@@ -83,20 +85,28 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-md">
+            <div className="relative">
             <div className="absolute -inset-3 rounded-[999px_999px_0.5rem_0.5rem] border border-champagne/50" aria-hidden="true" />
-            <div className="arch relative aspect-[4/5] bg-burgundy-deep">
-              {heroImg && (
-                <Image
-                  src={heroImg.url}
-                  alt={heroImg.alt_text ?? heroProduct!.name}
-                  fill
-                  priority
-                  sizes="(min-width: 768px) 28rem, 90vw"
-                  className="object-cover"
-                  unoptimized={heroImg.url.endsWith(".svg")}
-                />
-              )}
+            <div className="arch relative aspect-[4/5] bg-cream">
+              <Cake3D
+                design={HERO_DESIGN}
+                fallback={
+                  heroImg && (
+                    <Image
+                      src={heroImg.url}
+                      alt={heroImg.alt_text ?? heroProduct!.name}
+                      fill
+                      priority
+                      sizes="(min-width: 768px) 28rem, 90vw"
+                      className="object-cover"
+                      unoptimized={heroImg.url.endsWith(".svg")}
+                    />
+                  )
+                }
+              />
             </div>
+            </div>
+            <p className="mt-5 text-center text-sm text-ivory/70">Drag the cake to turn it</p>
           </div>
         </div>
       </section>

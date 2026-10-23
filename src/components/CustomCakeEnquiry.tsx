@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { buildWhatsAppUrl, isValidWhatsAppNumber, makeEnquiryRef } from "@/lib/whatsapp";
+import { describeDesign, designFromForm } from "@/lib/cake3d/design";
 
 export function CustomCakeEnquiry({ whatsappNumber }: { whatsappNumber: string | null }) {
   const [error, setError] = useState<string | null>(null);
@@ -18,6 +19,8 @@ export function CustomCakeEnquiry({ whatsappNumber }: { whatsappNumber: string |
       return;
     }
     setError(null);
+    const designForm = document.getElementById("cake-design");
+    const sketch = designForm instanceof HTMLFormElement ? describeDesign(designFromForm(designForm)) : null;
     const lines = [
       "Hello KRIVA! I'd like to enquire about a custom cake.",
       `Enquiry ref: ${makeEnquiryRef()}`,
@@ -26,6 +29,7 @@ export function CustomCakeEnquiry({ whatsappNumber }: { whatsappNumber: string |
       `Date needed: ${get("date")}`,
       get("servings") ? `Servings / size: ${get("servings")}` : null,
       get("flavours") ? `Flavours: ${get("flavours")}` : null,
+      sketch ? `3D sketch: ${sketch}` : null,
       get("design") ? `Design ideas: ${get("design")}` : null,
       get("name") ? `Name: ${get("name")}` : null,
       "",

@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | Lint | `npm run lint` | ✅ 0 errors, 0 warnings |
 | Type check | `npm run typecheck` | ✅ no errors |
-| Automated tests | `npm test` | ✅ **90 / 90 passed** (7 files) |
+| Automated tests | `npm test` | ✅ **92 / 92 passed** (8 files) |
 | Production build | `npm run build` | ✅ compiled; 29 routes + proxy |
 | Smoke test (preview mode) | `next start` + Playwright/Chromium | ✅ see below |
 
@@ -60,6 +60,9 @@ Calls the real route handlers (`/api/checkout`, `/api/payments/start|verify|reco
 
 ### Authorisation — `tests/integration/auth.test.ts` (9)
 Unauthenticated users and signed-in non-owners are refused by `getAdmin`/`requireAdminAction`/`requireAdminPage`; six protected server actions (product save/delete/quick-update, order status, offline payment, settings) reject non-owners **before any write**; `/admin` proxy redirects signed-out visitors and lets the login page through; owner product form validation (sizes, prices, duplicate names, slugs, stock).
+
+### 3D cake — `tests/unit/cake3d.test.ts` (2)
+Design summary wording used on the page and in the WhatsApp enquiry; unknown or tampered option values fall back to safe defaults. The 3D rendering itself was checked in Chromium (WebGL via SwiftShader): hero cake renders, drag turns it, every designer option rebuilds the cake, no console errors, no sideways scrolling at 390 px.
 
 ### Smoke test of the built site (preview mode, Chromium)
 - All public routes return 200; unknown product 404; `/admin` redirects; sitemap and robots served

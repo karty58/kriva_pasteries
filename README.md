@@ -1,8 +1,8 @@
 # KRIVA — cakes & pastries, Coimbatore
 
-Production-ready storefront and owner dashboard for KRIVA: catalogue, cart, website checkout, Google Pay / UPI payments through Razorpay, WhatsApp ordering, and order management.
+Production-ready storefront and owner dashboard for KRIVA: an interactive 3D cake in the homepage hero, a "sketch your cake in 3D" designer for custom cakes, catalogue, cart, website checkout, Google Pay / UPI payments through Razorpay, WhatsApp ordering, and order management.
 
-**Stack:** Next.js 16 (App Router, TypeScript) · Tailwind CSS 4 · Supabase (Postgres, Auth, Storage, Row Level Security) · Razorpay (UPI incl. Google Pay) · Vitest
+**Stack:** Next.js 16 (App Router, TypeScript) · Tailwind CSS 4 · three.js (3D) · Supabase (Postgres, Auth, Storage, Row Level Security) · Razorpay (UPI incl. Google Pay) · Vitest
 
 > **Status:** All code is implemented and the automated checks pass (see `docs/TESTING.md`). **Live payments are not yet operational.** They need KRIVA's Razorpay merchant account, a Supabase project and the business details in `docs/OWNER_INFO_NEEDED.md`. Every product in the seed data is a **sample** with placeholder prices.
 
@@ -61,6 +61,7 @@ src/
     orders.ts            Order creation, customer order lookup, rate limiting
     payments/            Razorpay client, signature checks, payment decision logic
     whatsapp.ts          WhatsApp message/link builder
+    cake3d/              3D cake: design options (design.ts) and three.js scene (scene.ts)
     schedule.ts          IST lead-time / opening-hours validation
     auth.ts              Owner authorisation
   proxy.ts               Session refresh + /admin redirect (Next 16 "proxy", formerly middleware)
