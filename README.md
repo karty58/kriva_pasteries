@@ -2,6 +2,8 @@
 
 Production-ready storefront and owner dashboard for KRIVA: an interactive 3D cake in the homepage hero, a "sketch your cake in 3D" designer for custom cakes, catalogue, cart, website checkout, Google Pay / UPI payments through Razorpay, WhatsApp ordering, and order management.
 
+**Live site:** https://kriva-patisserie.vercel.app (Vercel, deploys automatically from `main`). Online orders and the owner login at `/admin` switch on once Supabase is connected (see docs/SUPABASE_SETUP.md); until then the site runs in preview mode.
+
 **Stack:** Next.js 16 (App Router, TypeScript) · Tailwind CSS 4 · three.js (3D) · Supabase (Postgres, Auth, Storage, Row Level Security) · Razorpay (UPI incl. Google Pay) · Vitest
 
 > **Status:** All code is implemented and the automated checks pass (see `docs/TESTING.md`). **Live payments are not yet operational.** They need KRIVA's Razorpay merchant account, a Supabase project and the business details in `docs/OWNER_INFO_NEEDED.md`. Every product in the seed data is a **sample** with placeholder prices.
