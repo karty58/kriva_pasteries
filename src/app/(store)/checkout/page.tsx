@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getSettings } from "@/lib/catalogue";
 import { isDemoMode } from "@/lib/env";
 import { onlinePaymentsAvailable } from "@/lib/orders";
+import { isServiceConfigured } from "@/lib/supabase/service";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
 
 export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
@@ -20,6 +21,17 @@ export default async function CheckoutPage({ searchParams }: PageProps<"/checkou
     );
   }
   const settings = await getSettings();
+  if (!isServiceConfigured()) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-24 text-center">
+        <h1 className="font-display text-5xl text-brand">Website ordering opens soon</h1>
+        <p className="mt-4 text-muted">
+          {settings.phone ? <>Until then, please call KRIVA on <a className="underline" href={`tel:${settings.phone.replace(/\s/g, "")}`}>{settings.phone}</a> or visit the shop.</> : "Until then, please contact KRIVA or visit the shop."}
+        </p>
+        <Link href="/cart" className="btn btn-primary mt-8">Back to cart</Link>
+      </div>
+    );
+  }
   const online = onlinePaymentsAvailable(settings);
   return (
     <CheckoutForm

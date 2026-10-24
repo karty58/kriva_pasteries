@@ -1,6 +1,6 @@
 import "server-only";
 import { isDemoMode } from "./env";
-import { createServiceClient } from "./supabase/service";
+import { createServiceClient, isServiceConfigured } from "./supabase/service";
 import { normaliseProduct, PRODUCT_SELECT } from "./catalogue";
 import { DEFAULT_SETTINGS } from "./demo-data";
 import { priceCart, PricingError } from "./pricing";
@@ -70,6 +70,9 @@ export interface PlacedOrder {
 export async function placeOrder(input: CheckoutInput, clientKey: string, now = new Date()): Promise<PlacedOrder> {
   if (isDemoMode()) {
     throw new CheckoutError("DEMO_MODE", "Online ordering is not connected yet. Please order on WhatsApp.", 503);
+  }
+  if (!isServiceConfigured()) {
+    throw new CheckoutError("NOT_READY", "Website ordering opens soon. Please contact KRIVA directly.", 503);
   }
   if (!(await hitRateLimit(`checkout:ip:${clientKey}`, 10, 600)) ||
       !(await hitRateLimit(`checkout:phone:${input.customer.phone}`, 6, 600))) {
